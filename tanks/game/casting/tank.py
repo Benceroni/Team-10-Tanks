@@ -3,7 +3,7 @@ from game.casting.actor import Actor
 from game.shared.point import Point
 
 
-class Cycle(Actor):
+class Tank(Actor):
     """
     An old-school light-cycle that leaves a solid beam of light as it's trail.
     
