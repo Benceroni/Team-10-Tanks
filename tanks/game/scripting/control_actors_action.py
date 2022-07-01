@@ -30,11 +30,11 @@ class ControlActorsAction(Action):
             cast (Cast): The cast of Actors in the game.
             script (Script): The script of Actions in the game.
         """
-        cycle1 = cast.get_actors("cycles")[0]
-        cycle2 = cast.get_actors("cycles")[1]
+        tank1 = cast.get_actors("cycles")[0]
+        tank2 = cast.get_actors("cycles")[1]
 
-        current_dir1 = cycle1.get_segments()[0].get_velocity()
-        current_dir2 = cycle2.get_segments()[0].get_velocity()
+        current_dir1 = tank1.get_segments()[0].get_velocity()
+        current_dir2 = tank2.get_segments()[0].get_velocity()
 
         # left
         if self._keyboard_service.is_key_down('a'):
@@ -52,7 +52,7 @@ class ControlActorsAction(Action):
         if self._keyboard_service.is_key_down('s'):
             current_dir1 = Point(0, constants.CELL_SIZE)
         
-        cycle1.turn_head(current_dir1)
+        tank1.turn_head(current_dir1)
 
         # left
         if self._keyboard_service.is_key_down('j'):
@@ -70,4 +70,4 @@ class ControlActorsAction(Action):
         if self._keyboard_service.is_key_down('k'):
             current_dir2 = Point(0, constants.CELL_SIZE)
         
-        cycle2.turn_head(current_dir2)
+        tank2.turn_head(current_dir2)
