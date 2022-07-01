@@ -25,11 +25,19 @@ class KeyboardService:
         self._keys['k'] = pyray.KEY_K
         self._keys['l'] = pyray.KEY_L
 
+        # Fire Buttons
+        # Player 1
+        self._keys['l_ctrl'] = pyray.KEY_LEFT_CONTROL
+        self._keys['l_alt']  = pyray.KEY_LEFT_ALT
+        # Player 2
+        self._keys['r_ctrl'] = pyray.KEY_RIGHT_CONTROL
+        self._keys['r_alt']  = pyray.KEY_RIGHT_ALT
+
     def is_key_up(self, key):
         """Checks if the given key is currently up.
         
         Args:
-            key (string): The given key (w, a, s, d or i, j, k, l)
+            key (string): The given key.
         """
         pyray_key = self._keys[key.lower()]
         return pyray.is_key_up(pyray_key)
@@ -38,7 +46,7 @@ class KeyboardService:
         """Checks if the given key is currently down.
         
         Args:
-            key (string): The given key (w, a, s, d or i, j, k, l)
+            key (string): The given key.
         """
         pyray_key = self._keys[key.lower()]
         return pyray.is_key_down(pyray_key)
