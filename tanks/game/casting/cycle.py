@@ -99,9 +99,9 @@ class Cycle(Actor):
     def _prepare_cycle(self):
         """Prepares a light cycle based on the instance's assigned player number.
         """
-        text = constants.CYCLE_SHAPE
+        text = constants.TANK_SHAPE
         
-        for i in range(constants.CYCLE_LENGTH):
+        for i in range(constants.TANK_LENGTH):
             if self._player_number == 1:
                 x = int(constants.CELL_SIZE * 15)
                 y = int(constants.CELL_SIZE * 10)

@@ -8,10 +8,22 @@ MAX_X = 900
 MAX_Y = 600
 FRAME_RATE = 15
 FONT_SIZE = 15
-CAPTION = "Cycle"
-TAIL_SHAPES = [" ","/","\\"]
-CYCLE_SHAPE = chr(169) # Copyright symbol (C)
-CYCLE_LENGTH = 2
+CAPTION = "Tanks"
+# TAIL_SHAPES = [" ","/","\\"]
+
+# Textual bullet shapes are defined for two directions:
+#   0: left/right
+#   1: up/down
+# and consist of a series of three shapes: 
+#   0: head
+#   1: mid
+#   2: tail
+BULLET_SHAPES = [
+    ["*", chr(164), "-"],
+    ["*", chr(164), "|"],
+]
+TANK_SHAPE = chr(169) # Copyright symbol (C)
+TANK_LENGTH = 2
 
 # Colors
 WHITE = Color(255, 255, 255)
