@@ -1,5 +1,6 @@
 import constants
 
+from game.casting.item import Item
 from game.casting.cast import Cast
 from game.casting.actor import Actor
 from game.casting.score import Score
@@ -25,7 +26,14 @@ def main():
     cast.add_actor("cycles", Cycle(constants.RED, 2))
     cast.add_actor("scores", Score())
     cast.add_actor("scores", Score())
-   
+    
+
+    # Prompt for a stage 
+    # if stage = 1
+    # Stage 1: Symmetrical
+    cast.set_stage(2)
+    
+    
     # start the game
     keyboard_service = KeyboardService()
     video_service = VideoService()

@@ -28,13 +28,14 @@ class DrawActorsAction(Action):
         """
         score = cast.get_first_actor("scores")
         cycles = cast.get_actors("cycles")
-        
+        items = cast.get_actors("items")
         banners = cast.get_actors("banners")
 
         self._video_service.clear_buffer()
         for cycle in cycles:
             segments = cycle.get_segments()
             self._video_service.draw_actors(segments)
+        self._video_service.draw_actors(items)
 
         # Banners are last to have topmost priority
         # over all other items.

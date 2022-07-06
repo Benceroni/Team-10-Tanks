@@ -17,7 +17,7 @@ class Item(Actor):
         "Constructs a new Item."
         super().__init__()
         self._points = 0
-        self.set_text("@")
+        self.set_text("[]")
         self.set_color(constants.RED)
         self.reset()
         
@@ -37,3 +37,5 @@ class Item(Actor):
             points (int): The points the item is worth.
         """
         return self._points
+
+    
