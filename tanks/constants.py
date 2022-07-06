@@ -1,5 +1,5 @@
 from game.shared.color import Color
-
+from game.shared.point import Point
 
 COLUMNS = 60
 ROWS = 40
@@ -24,6 +24,11 @@ BULLET_SHAPES = [
 ]
 TANK_SHAPE = chr(169) # Copyright symbol (C)
 TANK_LENGTH = 2
+PLAYER_START = [
+    Point(30, 20),
+    Point(15, 10),
+    Point(45, 30)
+]
 
 # Colors
 WHITE = Color(255, 255, 255)

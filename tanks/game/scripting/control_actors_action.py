@@ -5,9 +5,9 @@ from game.shared.point import Point
 
 class ControlActorsAction(Action):
     """
-    An input action that controls the cycle.
+    An input action that controls the tank.
     
-    The responsibility of ControlActorsAction is to get the direction and move the cycle's head.
+    The responsibility of ControlActorsAction is to get the direction and move the tank's head.
 
     Attributes:
         _keyboard_service (KeyboardService): An instance of KeyboardService.
@@ -30,11 +30,11 @@ class ControlActorsAction(Action):
             cast (Cast): The cast of Actors in the game.
             script (Script): The script of Actions in the game.
         """
-        tank1 = cast.get_actors("cycles")[0]
-        tank2 = cast.get_actors("cycles")[1]
+        tank1 = cast.get_actors("tanks")[0]
+        tank2 = cast.get_actors("tanks")[1]
 
-        current_dir1 = tank1.get_segments()[0].get_velocity()
-        current_dir2 = tank2.get_segments()[0].get_velocity()
+        current_dir1 = Point(0, 0)
+        current_dir2 = Point(0, 0)
 
         # left
         if self._keyboard_service.is_key_down('a'):
@@ -51,8 +51,12 @@ class ControlActorsAction(Action):
         # down
         if self._keyboard_service.is_key_down('s'):
             current_dir1 = Point(0, constants.CELL_SIZE)
+
+        # fire
+        if self._keyboard_service.is_key_down('l_ctrl') or self._keyboard_service.is_key_down('l_alt'):
+            tank1.fire_bullet(current_dir1)
         
-        tank1.turn_head(current_dir1)
+        tank1.set_velocity(current_dir1)
 
         # left
         if self._keyboard_service.is_key_down('j'):
@@ -69,5 +73,9 @@ class ControlActorsAction(Action):
         # down
         if self._keyboard_service.is_key_down('k'):
             current_dir2 = Point(0, constants.CELL_SIZE)
+
+        # fire
+        if self._keyboard_service.is_key_down('r_ctrl') or self._keyboard_service.is_key_down('r_alt'):
+            tank2.fire_bullet(current_dir2)
         
-        tank2.turn_head(current_dir2)
+        tank2.set_velocity(current_dir2)

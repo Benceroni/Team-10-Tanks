@@ -20,6 +20,6 @@ class MoveActorsAction(Action):
         for actor in actors:
             actor.move_next()
 
-        cycles = cast.get_actors("cycles")
-        for cycle in cycles:
-            cycle.grow_tail(1)
+        # tanks = cast.get_actors("tanks")
+        # for tank in tanks:
+        #     tank.grow_tail(1)

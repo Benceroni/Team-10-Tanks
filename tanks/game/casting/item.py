@@ -6,7 +6,7 @@ from game.shared.point import Point
 
 class Item(Actor):
     """
-    A item that the cycles can potentially pick up.
+    A item that the tanks can potentially pick up.
     
     The responsibility of Item is to select a random position and points that it's worth.
 

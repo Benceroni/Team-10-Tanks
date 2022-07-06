@@ -8,8 +8,8 @@ class HandleCollisionsAction(Action):
     """
     An update action that handles interactions between the actors.
     
-    The responsibility of HandleCollisionsAction is to handle the situation when the cycle collides
-    with the items, or the cycle collides with its segments, or the game is over.
+    The responsibility of HandleCollisionsAction is to handle the situation when the tank collides
+    with the items, or the tank collides with its segments, or the game is over.
 
     Attributes:
         _is_game_over (boolean): Whether or not the game is over.
@@ -30,7 +30,7 @@ class HandleCollisionsAction(Action):
         """
         if not self._is_game_over:
             self._handle_item_collision(cast)
-            self._handle_segment_collision(cast)
+            # self._handle_segment_collision(cast)
             self._handle_game_over(cast)
 
     def _handle_item_collision(self, cast):
@@ -41,12 +41,12 @@ class HandleCollisionsAction(Action):
             cast (Cast): The cast of Actors in the game.
         """
         # score = cast.get_first_actor("scores")
-        # cycle = cast.get_first_actor("cycles")
-        # head = cycle.get_head()
+        # tank = cast.get_first_actor("tanks")
+        # head = tank.get_head()
 
         # if head.get_position().equals(item.get_position()):
         #     points = item.get_points()
-        #     cycle.grow_tail(points)
+        #     tank.grow_tail(points)
         #     score.add_points(points)
         #     item.reset()
         pass
@@ -79,18 +79,18 @@ class HandleCollisionsAction(Action):
 
 
     def _handle_segment_collision(self, cast):
-        """Sets the game over flag if the cycle collides with one of its segments.
+        """Sets the game over flag if the tank collides with one of its segments.
         
         Args:
             cast (Cast): The cast of Actors in the game.
         """
-        cycles = cast.get_actors("cycles")
+        tanks = cast.get_actors("tanks")
         
-        head1 = cycles[0].get_segments()[0]
-        head2 = cycles[1].get_segments()[0]
+        head1 = tanks[0].get_segments()[0]
+        head2 = tanks[1].get_segments()[0]
 
-        segments1 = cycles[0].get_segments()[1:]
-        segments2 = cycles[1].get_segments()[1:]
+        segments1 = tanks[0].get_segments()[1:]
+        segments2 = tanks[1].get_segments()[1:]
 
         for seg1, seg2 in zip(segments1, segments2):
             if self._check_collision(head1, seg1, seg2):
@@ -107,14 +107,14 @@ class HandleCollisionsAction(Action):
 
           
     def _handle_game_over(self, cast):
-        """Shows the 'game over' message and turns the cycle and any items 
+        """Shows the 'game over' message and turns the tank and any items 
         white if the game is over.
         
         Args:
             cast (Cast): The cast of Actors in the game.
         """
         if self._is_game_over:
-            cycles = cast.get_actors("cycles")
+            tanks = cast.get_actors("tanks")
             bkg_color = self._winning_color
             text = "Game Over".center(21) + "\n" + f"{self._winner} Wins!".center(21)
             message = Banner(text, bkg_color, 40, 15)
@@ -122,10 +122,10 @@ class HandleCollisionsAction(Action):
             
             cast.add_actor("banners", message)
 
-            for cycle in cycles:
-                cycle.set_color(constants.WHITE)
-                cycle.stop_wall()
-                segments = cycle.get_segments()
+            for tank in tanks:
+                tank.set_color(constants.WHITE)
+                tank.stop_wall()
+                segments = tank.get_segments()
 
                 for segment in segments:
                     segment.set_color(constants.WHITE)
