@@ -30,14 +30,16 @@ class DrawActorsAction(Action):
         tanks = cast.get_actors("tanks")
         
         banners = cast.get_actors("banners")
-        bullets = cast.get_actors("bullets")
+        missiles = cast.get_actors("missiles")
 
         self._video_service.clear_buffer()
+        
+        for missile in missiles:
+            self._video_service.draw_actor(missile)
+        
         for tank in tanks:
             self._video_service.draw_actor(tank)
 
-        for bullet in bullets:
-            self._video_service.draw_bullet(bullet)
 
         # Banners are last to have topmost priority
         # over all other items.

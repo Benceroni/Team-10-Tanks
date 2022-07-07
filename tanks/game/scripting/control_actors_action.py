@@ -39,43 +39,51 @@ class ControlActorsAction(Action):
         # left
         if self._keyboard_service.is_key_down('a'):
             current_dir1 = Point(-constants.CELL_SIZE, 0)
+            tank1.set_facing(current_dir1)
         
         # right
         if self._keyboard_service.is_key_down('d'):
             current_dir1 = Point(constants.CELL_SIZE, 0)
+            tank1.set_facing(current_dir1)
         
         # up
         if self._keyboard_service.is_key_down('w'):
             current_dir1 = Point(0, -constants.CELL_SIZE)
+            tank1.set_facing(current_dir1)
         
         # down
         if self._keyboard_service.is_key_down('s'):
             current_dir1 = Point(0, constants.CELL_SIZE)
+            tank1.set_facing(current_dir1)
 
         # fire
         if self._keyboard_service.is_key_down('l_ctrl') or self._keyboard_service.is_key_down('l_alt'):
-            tank1.fire_bullet(current_dir1)
+            tank1.fire_missile(cast, current_dir1)
         
         tank1.set_velocity(current_dir1)
 
         # left
         if self._keyboard_service.is_key_down('j'):
             current_dir2 = Point(-constants.CELL_SIZE, 0)
+            tank2.set_facing(current_dir2)
         
         # right
         if self._keyboard_service.is_key_down('l'):
             current_dir2 = Point(constants.CELL_SIZE, 0)
+            tank2.set_facing(current_dir2)
         
         # up
         if self._keyboard_service.is_key_down('i'):
             current_dir2 = Point(0, -constants.CELL_SIZE)
+            tank2.set_facing(current_dir2)
         
         # down
         if self._keyboard_service.is_key_down('k'):
             current_dir2 = Point(0, constants.CELL_SIZE)
+            tank2.set_facing(current_dir2)
 
         # fire
         if self._keyboard_service.is_key_down('r_ctrl') or self._keyboard_service.is_key_down('r_alt'):
-            tank2.fire_bullet(current_dir2)
+            tank2.fire_missile(cast, current_dir2)
         
         tank2.set_velocity(current_dir2)

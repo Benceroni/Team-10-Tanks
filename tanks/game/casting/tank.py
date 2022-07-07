@@ -1,4 +1,5 @@
 import constants
+from game.casting.missile import Missile
 from game.casting.actor import Actor
 from game.shared.point import Point
 
@@ -11,15 +12,16 @@ class Tank(Actor):
 
     Attributes:
         _player_number (int): Identifies which player the tank instance belongs to.
-        _bullets (list[Actor]): The list of Actors representing bullets fired at the other player.
+        _num_rounds (int): The number of active missiles on the screen from this player.
         _color (Color): The color that the light wall should be rendered.
         _wall_active (bool): Whether or not new wall segments are being drawn from this tank.
+        _facing (Point): Is really the last velocity that the tank moved that is not (0,0) which defines which
+                         direction it is facing.
     
-        All other attributes inherited from Actor.
+        All other attributes and methods inherited from Actor.
     """
     def __init__(self, color, player_number=0):
         super().__init__()
-        self._bullets = []
         self._player_number = player_number
         self._color = color
         # self._wall_active = True
@@ -27,19 +29,55 @@ class Tank(Actor):
         x = int(constants.CELL_SIZE * constants.PLAYER_START[self._player_number].get_x())
         y = int(constants.CELL_SIZE * constants.PLAYER_START[self._player_number].get_y())
         self._position = Point(x, y)
+        self._reload_gun()
+        self._facing = Point(0, -1 * constants.CELL_SIZE) # Set the initial facing direction to UP.
+
+
+    def _reload_gun(self):
+        self._num_rounds = 6
+        self._reload_time = 2 * (constants.FRAME_RATE)
+
+
+    def set_facing(self, velocity):
+        """Sets the _facing attribute to point the Tank in different directions.
+        
+        Args:
+            velocity (Point): defines a facing direction based on the last direction moved.
+        """
+        self._facing = velocity
 
 
     def move_next(self):
-        """Moves the actor to its next position according to its velocity. Will wrap the position 
-        from one side of the screen to the other when it reaches the given maximum x and y values.
+        super().move_next()
+        if self._num_rounds < 1:
+            print(f"Time to reload player {self._player_number}: {self._reload_time} ticks.")
+            self._reload_time -= 1
+            if self._reload_time == 0:
+                self._reload_gun()
+   
+        
 
+
+    def fire_missile(self, cast, velocity):
+        """Creates a missile actor (fires a missile or projectile) and sets its velocity. The 
+        starting position is the same as the tank's position.
+        
         Args:
-            max_x (int): The maximum x value.
-            max_y (int): The maximum y value.
+            cast (Cast): A list of Actors in acting groups that we will add the missile to. 
+            velocity (Point): The initial Vx, Vy velocity of the missile. 
         """
-        x = (self._position.get_x() + self._velocity.get_x()) % constants.MAX_X
-        y = (self._position.get_y() + self._velocity.get_y()) % constants.MAX_Y
-        self._position = Point(x, y)
+        if self._num_rounds > 0:
+            velocity = self._facing
+            missile = Missile(self._player_number, self._position, velocity, self._color)
+            cast.add_actor("missiles", missile)
+            self._num_rounds -= 1
+            print(f"Rounds left for player {self._player_number}: {self._num_rounds}")
+            # print(f"Missile fired by player {self._player_number}")
+            # print(f"    FROM: {self._position.get_x()},{self._position.get_y()}")
+            # print(f"     DIR: {velocity.get_x()},{velocity.get_y()}")
+
+
+
 
 
             

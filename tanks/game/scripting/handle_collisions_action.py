@@ -51,12 +51,12 @@ class HandleCollisionsAction(Action):
         #     item.reset()
         pass
 
-    def _check_collision(self, head, seg1, seg2):
+    def _check_collision(self, thing_1, thing_2):
         """Check if a head has collided either one segment or another.
         
         Returns: (boolean) True is collision occurred.
         """
-        return head.get_position().equals(seg1.get_position()) or head.get_position().equals(seg2.get_position())
+        return thing_1.get_position().equals(thing_2.get_position())
 
     def _set_winner(self, player_num = 0):
         """Sets the winner to the appropriate player:
@@ -78,26 +78,26 @@ class HandleCollisionsAction(Action):
             self._winning_color = constants.GREY_80PCT
 
 
-    def _handle_segment_collision(self, cast):
+    def _handle_missile_collision(self, cast):
         """Sets the game over flag if the tank collides with one of its segments.
         
         Args:
             cast (Cast): The cast of Actors in the game.
         """
         tanks = cast.get_actors("tanks")
+        missiles = cast.get_actors("missiles")
         
-        head1 = tanks[0].get_segments()[0]
-        head2 = tanks[1].get_segments()[0]
-
-        segments1 = tanks[0].get_segments()[1:]
-        segments2 = tanks[1].get_segments()[1:]
-
-        for seg1, seg2 in zip(segments1, segments2):
-            if self._check_collision(head1, seg1, seg2):
+        tank1 = tanks[0]
+        tank2 = tanks[1]
+        
+        for missile in missiles:
+            if self._check_collision(tank1, missile):
+                # tank1.apply_damage(points)
                 self._is_game_over = True
                 self._set_winner(2)
 
-            if self._check_collision(head2, seg1, seg2):
+            if self._check_collision(tank2, missile):
+                # tank2.apply_damage(points)
                 self._is_game_over = True
                 # Check if both players triggered collision within the exact same frame...
                 if self._winner == "":

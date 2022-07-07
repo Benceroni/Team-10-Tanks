@@ -4,6 +4,7 @@ from game.casting.cast import Cast
 from game.casting.actor import Actor
 from game.casting.score import Score
 from game.casting.tank import Tank
+
 from game.scripting.script import Script
 from game.scripting.control_actors_action import ControlActorsAction
 from game.scripting.move_actors_action import MoveActorsAction

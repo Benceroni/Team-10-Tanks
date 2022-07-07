@@ -19,6 +19,15 @@ class MoveActorsAction(Action):
         actors = cast.get_all_actors()
         for actor in actors:
             actor.move_next()
+            
+
+        # Clean up dead missiles
+        missiles = cast.get_actors("missiles")
+
+        for missile in missiles:
+            if missile.get_range() <= 0:
+                cast.remove_actor("missiles", missile)
+
 
         # tanks = cast.get_actors("tanks")
         # for tank in tanks:
