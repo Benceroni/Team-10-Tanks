@@ -3,15 +3,15 @@ from game.shared.color import Color
 
 COLUMNS = 60
 ROWS = 40
-CELL_SIZE = 15
+CELL_SIZE = 16
 MAX_X = 900
 MAX_Y = 600
-FRAME_RATE = 15
-FONT_SIZE = 15
+FRAME_RATE = 16
+FONT_SIZE = 16
 CAPTION = "Cycle"
 TAIL_SHAPES = [" ","/","\\"]
 CYCLE_SHAPE = chr(169) # Copyright symbol (C)
-CYCLE_LENGTH = 2
+CYCLE_LENGTH = 1
 
 # Colors
 WHITE = Color(255, 255, 255)
