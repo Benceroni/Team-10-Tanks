@@ -30,7 +30,7 @@ def main():
     # Prompt for a stage 
     # if stage = 1
     # Stage 1: Symmetrical
-    # if stage = 2
+    # if stage = 2 
     # Stage 2: Diagonals
     cast.set_stage(2)
 

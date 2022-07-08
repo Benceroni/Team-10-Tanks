@@ -31,7 +31,7 @@ class Missile(Actor):
 
     def move_next(self):
         super().move_next()
-        print(f"Range to live: {self._range}")
+        # print(f"Range to live: {self._range}")
         self._range -= 1
 
     ## For now all other methods inherited from Actor remain the same.

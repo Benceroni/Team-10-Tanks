@@ -9,7 +9,7 @@ MAX_Y = 600
 FRAME_RATE = 16
 FONT_SIZE = 16
 CAPTION = "Tanks"
-# TAIL_SHAPES = [" ","/","\\"]
+
 
 # Textual bullet shapes are defined for two directions:
 #   0: left/right
@@ -18,12 +18,16 @@ CAPTION = "Tanks"
 #   0: head
 #   1: mid
 #   2: tail
-BULLET_SHAPES = [
+MISSILE_SHAPES = [
     ["*", chr(164), "-"],
     ["*", chr(164), "|"],
 ]
+MISSLE_SPEED = 0.5
+
 TANK_SHAPE = chr(169) # Copyright symbol (C)
-TANK_LENGTH = 2
+TANK_LENGTH = 1
+TANK_SPEED = 0.25
+
 PLAYER_START = [
     Point(30, 20),
     Point(15, 10),
