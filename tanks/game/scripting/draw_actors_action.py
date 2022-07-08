@@ -27,15 +27,19 @@ class DrawActorsAction(Action):
             script (Script): The script of Actions in the game.
         """
         score = cast.get_first_actor("scores")
-        cycles = cast.get_actors("cycles")
-        items = cast.get_actors("items")
+        tanks = cast.get_actors("tanks")
+        
         banners = cast.get_actors("banners")
+        missiles = cast.get_actors("missiles")
 
         self._video_service.clear_buffer()
-        for cycle in cycles:
-            segments = cycle.get_segments()
-            self._video_service.draw_actors(segments)
-        self._video_service.draw_actors(items)
+        
+        for missile in missiles:
+            self._video_service.draw_actor(missile)
+        
+        for tank in tanks:
+            self._video_service.draw_actor(tank)
+
 
         # Banners are last to have topmost priority
         # over all other items.

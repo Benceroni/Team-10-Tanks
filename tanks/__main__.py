@@ -1,10 +1,10 @@
 import constants
 
-from game.casting.item import Item
 from game.casting.cast import Cast
 from game.casting.actor import Actor
 from game.casting.score import Score
-from game.casting.cycle import Cycle
+from game.casting.tank import Tank
+
 from game.scripting.script import Script
 from game.scripting.control_actors_action import ControlActorsAction
 from game.scripting.move_actors_action import MoveActorsAction
@@ -22,20 +22,11 @@ def main():
     # create the cast
     cast = Cast()
     # cast.add_actor("items", Item())
-    cast.add_actor("cycles", Cycle(constants.GREEN, 1))
-    cast.add_actor("cycles", Cycle(constants.RED, 2))
+    cast.add_actor("tanks", Tank(constants.GREEN, 1))
+    cast.add_actor("tanks", Tank(constants.RED, 2))
     cast.add_actor("scores", Score())
     cast.add_actor("scores", Score())
-    
-
-    # Prompt for a stage 
-    # if stage = 1
-    # Stage 1: Symmetrical
-    # if stage = 2
-    # Stage 2: Diagonals
-    cast.set_stage(2)
-    
-    
+   
     # start the game
     keyboard_service = KeyboardService()
     video_service = VideoService()

@@ -6,7 +6,7 @@ from game.shared.point import Point
 
 class Item(Actor):
     """
-    A item that the cycles can potentially pick up.
+    A item that the tanks can potentially pick up.
     
     The responsibility of Item is to select a random position and points that it's worth.
 
@@ -17,7 +17,7 @@ class Item(Actor):
         "Constructs a new Item."
         super().__init__()
         self._points = 0
-        self.set_text("[]")
+        self.set_text("@")
         self.set_color(constants.RED)
         self.reset()
         
@@ -37,5 +37,3 @@ class Item(Actor):
             points (int): The points the item is worth.
         """
         return self._points
-
-    

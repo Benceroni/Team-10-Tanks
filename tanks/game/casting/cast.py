@@ -1,6 +1,3 @@
-from game.casting.item import Item
-from game.shared.point import Point
-
 class Cast:
     """A collection of actors.
 
@@ -76,53 +73,3 @@ class Cast:
         """
         if group in self._actors:
             self._actors[group].remove(actor)
-
-    def set_stage(self, choice):
-        if choice == 1:
-            x = 200
-            y = 50
-            count = 0
-            while count < 825:
-                if count == 75:
-                    y = 250
-                if count == 150:
-                    y = 450
-                if count == 225:
-                    y = 1
-                    x = 450
-                if count == 300:
-                    y = 200
-                if count == 475:
-                    y = 500
-                if count == 600:
-                    x = 700
-                    y = 50
-                if count == 675:
-                    y = 250
-                if count == 750:
-                    y = 450
-                item = Item()
-                item.set_position(Point(x, y))
-                self.add_actor("items", item)
-                count += 1
-                y += 1
-        elif choice == 2:
-            x = 200
-            y = 100
-            count = 0
-            while count < 500:
-                if count == 100:
-                    y = 350
-                    x = 200
-                if count == 250:
-                    y = 100
-                    x = 550
-                if count == 400:
-                    y = 400
-                    x = 550
-                item = Item()
-                item.set_position(Point(x, y))
-                self.add_actor("items", item)
-                count += 1
-                y += 1
-                x += 1
