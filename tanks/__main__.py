@@ -26,7 +26,14 @@ def main():
     cast.add_actor("tanks", Tank(constants.RED, 2))
     cast.add_actor("scores", Score())
     cast.add_actor("scores", Score())
-   
+    
+    # Prompt for a stage 
+    # if stage = 1
+    # Stage 1: Symmetrical
+    # if stage = 2
+    # Stage 2: Diagonals
+    cast.set_stage(2)
+
     # start the game
     keyboard_service = KeyboardService()
     video_service = VideoService()

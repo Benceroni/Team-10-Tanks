@@ -28,7 +28,7 @@ class DrawActorsAction(Action):
         """
         score = cast.get_first_actor("scores")
         tanks = cast.get_actors("tanks")
-        
+        items = cast.get_actors("items")
         banners = cast.get_actors("banners")
         missiles = cast.get_actors("missiles")
 
@@ -40,6 +40,7 @@ class DrawActorsAction(Action):
         for tank in tanks:
             self._video_service.draw_actor(tank)
 
+        self._video_service.draw_actors(items)
 
         # Banners are last to have topmost priority
         # over all other items.
