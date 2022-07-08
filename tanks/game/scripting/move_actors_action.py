@@ -1,5 +1,6 @@
 from game.scripting.action import Action
-
+from game.shared.point import Point
+from game.scripting.handle_collisions_action import HandleCollisionsAction
 
 class MoveActorsAction(Action):
     """
