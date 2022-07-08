@@ -16,10 +16,22 @@ class MoveActorsAction(Action):
             cast (Cast): The cast of Actors in the game.
             script (Script): The script of Actions in the game.
         """
-        actors = cast.get_all_actors()
-        for actor in actors:
-            actor.move_next()
-            
+        collision_checker = HandleCollisionsAction()
+
+        tanks = cast.get_actors("tanks")
+        walls = cast.get_actors("items")
+        missiles = cast.get_actors("missiles")
+
+        if collision_checker.handle_tank_collision(cast, tanks[0], tanks[1]):
+            tanks[0].set_velocity(Point(0, 0))
+        tanks[0].move_next()
+
+        if collision_checker.handle_tank_collision(cast, tanks[1], tanks[0]):
+            tanks[1].set_velocity(Point(0, 0))
+        tanks[1].move_next()
+
+        for missile in missiles:
+            missile.move_next()
 
         # Clean up dead missiles
         missiles = cast.get_actors("missiles")
