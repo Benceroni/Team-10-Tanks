@@ -32,7 +32,7 @@ def main():
     # Stage 1: Symmetrical
     # if stage = 2 
     # Stage 2: Diagonals
-    cast.set_stage(2)
+    cast.set_stage(1)
 
     # start the game
     keyboard_service = KeyboardService()
