@@ -38,33 +38,28 @@ class ControlActorsAction(Action):
         tank1_y = 0
         tank2_x = 0
         tank2_y = 0
-        missile1_x = 0
-        missile1_y = 0
-        missile2_x = 0
-        missile2_y = 0
+        
 
         #Sets the movement of the first tank
         # left
         if self._keyboard_service.is_key_down('a'):
-            tank1_x = round(0.25 * -constants.CELL_SIZE)
-            missile1_x = round(0.5 * -constants.CELL_SIZE)
+            tank1_x = round(constants.TANK_SPEED * -constants.CELL_SIZE)
+            tank1.set_facing(Point(tank1_x, tank1_y))
         
         # right
         if self._keyboard_service.is_key_down('d'):
-            tank1_x = round(0.25 * constants.CELL_SIZE)
-            missile1_x = round(0.5 * constants.CELL_SIZE)
+            tank1_x = round(constants.TANK_SPEED * constants.CELL_SIZE) 
+            tank1.set_facing(Point(tank1_x, tank1_y))
         
         # up
         if self._keyboard_service.is_key_down('w'):
-            tank1_y = round(0.25 * -constants.CELL_SIZE)
-            missile1_y = round(0.5 * -constants.CELL_SIZE)
-        
+            tank1_y = round(constants.TANK_SPEED * -constants.CELL_SIZE)
+            tank1.set_facing(Point(tank1_x, tank1_y))
+
         # down
         if self._keyboard_service.is_key_down('s'):
-            tank1_y = round(0.25 * constants.CELL_SIZE)
-            missile1_y = round(0.5 * constants.CELL_SIZE)
-
-        tank1.set_facing(Point(missile1_x, missile1_y))
+            tank1_y = round(constants.TANK_SPEED * constants.CELL_SIZE)
+            tank1.set_facing(Point(tank1_x, tank1_y))
 
         # fire
         if self._keyboard_service.is_key_down('l_ctrl') or self._keyboard_service.is_key_down('l_alt'):
@@ -75,25 +70,23 @@ class ControlActorsAction(Action):
         #Sets the movement of the second tank
         # left
         if self._keyboard_service.is_key_down('j'):
-            tank2_x = round(0.25 * -constants.CELL_SIZE)
-            missile2_x = round(0.5 * -constants.CELL_SIZE)
-        
+            tank2_x = round(constants.TANK_SPEED * -constants.CELL_SIZE)
+            tank2.set_facing(Point(tank2_x, tank2_y))
+
         # right
         if self._keyboard_service.is_key_down('l'):
-            tank2_x = round(0.25 * constants.CELL_SIZE)
-            missile2_x = round(0.5 * constants.CELL_SIZE)
-        
+            tank2_x = round(constants.TANK_SPEED * constants.CELL_SIZE)
+            tank2.set_facing(Point(tank2_x, tank2_y))
+
         # up
         if self._keyboard_service.is_key_down('i'):
-            tank2_y = round(0.25 * -constants.CELL_SIZE)
-            missile2_y = round(0.5 * -constants.CELL_SIZE)
-        
+            tank2_y = round(constants.TANK_SPEED * -constants.CELL_SIZE)
+            tank2.set_facing(Point(tank2_x, tank2_y))
+
         # down
         if self._keyboard_service.is_key_down('k'):
-            tank2_y = round(0.25 * constants.CELL_SIZE)
-            missile2_y = round(0.5 * constants.CELL_SIZE)
-
-        tank2.set_facing(Point(missile2_x, missile2_y))
+            tank2_y = round(constants.TANK_SPEED * constants.CELL_SIZE)           
+            tank2.set_facing(Point(tank2_x, tank2_y))        
 
         # fire
         if self._keyboard_service.is_key_down('r_ctrl') or self._keyboard_service.is_key_down('r_alt'):
