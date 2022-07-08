@@ -77,6 +77,44 @@ class HandleCollisionsAction(Action):
             self._winner = "Nobody"
             self._winning_color = constants.GREY_80PCT
 
+    def _check_possible_collision(self, thing_1, thing_2):
+        """Check if a head has collided either one segment or another.
+        
+        Returns: (boolean) True if collision would occur.
+        """
+        x = (thing_1.get_position().get_x() + thing_1.get_velocity().get_x()) % constants.MAX_X
+        y = (thing_1.get_position().get_y() + thing_1.get_velocity().get_y()) % constants.MAX_Y
+        x_collides = False
+        y_collides = False
+
+        if x >= thing_2.get_position().get_x() - 8 and x <= thing_2.get_position().get_x() + 8:
+            x_collides = True
+
+        if y >= thing_2.get_position().get_y() - 8 and y <= thing_2.get_position().get_y() + 8:
+            y_collides = True
+
+        if x_collides == True and y_collides == True:
+            return True
+
+    def handle_tank_collision(self, cast, tank, opposite_tank):
+        """Blocks the movement of tanks (next missiles) when they collide with a wall
+
+        Args:
+            cast (Cast): The cast of Actors in the game.
+
+        Returns: (boolean) True if collision would occur.
+        """
+        walls = cast.get_actors("items")
+
+        #Checks the collisions
+        for wall in walls:
+            if self._check_possible_collision(tank, wall):
+                return True
+            
+            elif self._check_possible_collision(tank, opposite_tank):
+                return True
+
+        return False
 
     def _handle_missile_collision(self, cast):
         """Sets the game over flag if the tank collides with one of its segments.
