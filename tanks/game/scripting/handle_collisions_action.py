@@ -33,6 +33,7 @@ class HandleCollisionsAction(Action):
             self._handle_missile_collision(cast)
             self._handle_game_over(cast)
 
+    # It looks like Dallas used the "items" category for the walls, so we may implement this.
     def _handle_item_collision(self, cast):
         """Unused right now, but could allow for possibility of picking up bonuses,
         power-ups, other obstacles, etc...?
@@ -40,19 +41,19 @@ class HandleCollisionsAction(Action):
         Args:
             cast (Cast): The cast of Actors in the game.
         """
-        # score = cast.get_first_actor("scores")
-        # tank = cast.get_first_actor("tanks")
-        # head = tank.get_head()
-
-        # if head.get_position().equals(item.get_position()):
-        #     points = item.get_points()
-        #     tank.grow_tail(points)
-        #     score.add_points(points)
-        #     item.reset()
-        pass
+        items = cast.get_actors("items")
+        tank1 = cast.get_actor("tanks", 0)
+        tank2 = cast.get_actor("tanks", 1)
+        
+        for item in items:
+            if tank1.get_position().equals(item.get_position()):
+                print("Player 1 is touching a wall!")
+            if tank2.get_position().equals(item.get_position()):
+                print("Player 2 is touching a wall!")
+        
 
     def _check_collision(self, thing_1, thing_2):
-        """Check if a head has collided either one segment or another.
+        """Check if two things has collided either one segment or another.
         
         Returns: (boolean) True is collision occurred.
         """

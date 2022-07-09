@@ -53,6 +53,21 @@ class Cast:
             results.extend(self._actors[group])
         return results
 
+    def get_actor(self, group, actor_index):
+        """Gets the actor located at the given index in the given group.
+        
+        Args:
+            group (string): The name of the group.
+            
+        Returns:
+            Object: The actor located at actor_index position in the group.
+        """
+        result = None
+        if group in self._actors.keys():
+            if len(self._actors[group])-1 >= actor_index:
+                result = self._actors[group][actor_index]
+        return result
+
     def get_first_actor(self, group):
         """Gets the first actor in the given group.
         
@@ -60,12 +75,9 @@ class Cast:
             group (string): The name of the group.
             
         Returns:
-            List: The first actor in the group.
+            Object: The first actor in the group.
         """
-        result = None
-        if group in self._actors.keys():
-            result = self._actors[group][0]
-        return result
+        return self.get_actor(group, 0)
 
     def remove_actor(self, group, actor):
         """Removes an actor from the given group.
