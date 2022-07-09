@@ -27,11 +27,11 @@ class KeyboardService:
 
         # Fire Buttons
         # Player 1
-        self._keys['l_ctrl'] = pyray.KEY_LEFT_CONTROL
-        self._keys['l_alt']  = pyray.KEY_LEFT_ALT
+        self._keys['r_ctrl'] = pyray.KEY_LEFT_CONTROL
+        self._keys['r_alt']  = pyray.KEY_LEFT_ALT
         # Player 2
-        self._keys['r_ctrl'] = pyray.KEY_RIGHT_CONTROL
-        self._keys['r_alt']  = pyray.KEY_RIGHT_ALT
+        self._keys['l_ctrl'] = pyray.KEY_RIGHT_CONTROL
+        self._keys['l_alt']  = pyray.KEY_RIGHT_ALT
 
     def is_key_up(self, key):
         """Checks if the given key is currently up.

@@ -22,7 +22,8 @@ MISSILE_SHAPES = [
     ["*", chr(164), "-"],
     ["*", chr(164), "|"],
 ]
-MISSLE_SPEED = 0.5
+MISSILE_SPEED = 0.5
+MISSILE_RANGE = 50
 
 TANK_SHAPE = chr(169) # Copyright symbol (C)
 TANK_LENGTH = 1

@@ -30,7 +30,7 @@ class HandleCollisionsAction(Action):
         """
         if not self._is_game_over:
             self._handle_item_collision(cast)
-            # self._handle_segment_collision(cast)
+            self._handle_missile_collision(cast)
             self._handle_game_over(cast)
 
     def _handle_item_collision(self, cast):
@@ -77,8 +77,9 @@ class HandleCollisionsAction(Action):
             self._winner = "Nobody"
             self._winning_color = constants.GREY_80PCT
 
+
     def _check_possible_collision(self, thing_1, thing_2):
-        """Check if a head has collided either one segment or another.
+        """Check if a thing has collided with another thing.
         
         Returns: (boolean) True if collision would occur.
         """
@@ -96,8 +97,9 @@ class HandleCollisionsAction(Action):
         if x_collides == True and y_collides == True:
             return True
 
+
     def handle_tank_collision(self, cast, tank, opposite_tank):
-        """Blocks the movement of tanks (next missiles) when they collide with a wall
+        """Blocks the movement of tanks when they collide with a wall
 
         Args:
             cast (Cast): The cast of Actors in the game.
@@ -116,6 +118,7 @@ class HandleCollisionsAction(Action):
 
         return False
 
+
     def _handle_missile_collision(self, cast):
         """Sets the game over flag if the tank collides with one of its segments.
         
@@ -129,12 +132,12 @@ class HandleCollisionsAction(Action):
         tank2 = tanks[1]
         
         for missile in missiles:
-            if self._check_collision(tank1, missile):
+            if self._check_possible_collision(tank1, missile):
                 # tank1.apply_damage(points)
                 self._is_game_over = True
                 self._set_winner(2)
 
-            if self._check_collision(tank2, missile):
+            if self._check_possible_collision(tank2, missile):
                 # tank2.apply_damage(points)
                 self._is_game_over = True
                 # Check if both players triggered collision within the exact same frame...
@@ -162,8 +165,6 @@ class HandleCollisionsAction(Action):
 
             for tank in tanks:
                 tank.set_color(constants.WHITE)
-                tank.stop_wall()
-                segments = tank.get_segments()
+                
 
-                for segment in segments:
-                    segment.set_color(constants.WHITE)
+                

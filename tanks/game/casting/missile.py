@@ -2,6 +2,7 @@ import constants
 from game.casting.actor import Actor
 from game.shared.point import Point
 
+
 class Missile(Actor):
     """Attributes: 
             _player (int): identifies which player it belongs to.
@@ -22,7 +23,7 @@ class Missile(Actor):
         self.set_velocity(velocity)
         self.set_color(color)
         self._player = player
-        self._range = 30
+        self._range = constants.MISSILE_RANGE
 
 
     def get_range(self):

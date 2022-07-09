@@ -80,7 +80,7 @@ class Tank(Actor):
             velocity (Point): The initial Vx, Vy velocity of the missile. 
         """
         if self._num_rounds > 0:
-            velocity = self._facing.scale(constants.MISSLE_SPEED * constants.CELL_SIZE)
+            velocity = self._facing.scale(constants.MISSILE_SPEED)
             missile = Missile(self._player_number, self._position, velocity, self._color)
             cast.add_actor("missiles", missile)
             self._num_rounds -= 1
