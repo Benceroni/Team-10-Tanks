@@ -27,21 +27,21 @@ MISSILE_RANGE = 40
 MISSILE_EXPLOSION_POWER = 2
 MISSILE_EXPLOSION_VECTORS = [
     [ 0.00, -2.00], # N
-   # [ 0.75, -1.75], # NNE
+    [ 0.75, -1.75], # NNE
     [ 2.00, -2.00], # NE
-   # [ 1.75, -0.75], # ENE
+    [ 1.75, -0.75], # ENE
     [ 2.00,  0.00], # E
-   # [ 1.75,  0.75], # ESE
+    [ 1.75,  0.75], # ESE
     [ 2.00,  2.00], # SE
-   # [ 0.75,  1.75], # SSE
+    [ 0.75,  1.75], # SSE
     [ 0.00,  2.00], # S
-   # [-0.75,  1.75], # SSW
+    [-0.75,  1.75], # SSW
     [-2.00,  2.00], # SW
-   # [-1.75,  0.75], # WSW
+    [-1.75,  0.75], # WSW
     [-2.00,  0.00], # W
-   # [-1.75, -0.75], # WNW
+    [-1.75, -0.75], # WNW
     [-2.00, -2.00], # NW
-   # [-0.75, -1.75]  # NNW
+    [-0.75, -1.75]  # NNW
 ]
 MISSILE_EXPLOSION_VELOCITIES = []
 for vect in MISSILE_EXPLOSION_VECTORS:
