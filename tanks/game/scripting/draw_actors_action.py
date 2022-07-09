@@ -30,7 +30,8 @@ class DrawActorsAction(Action):
         tanks = cast.get_actors("tanks")
         items = cast.get_actors("items")
         banners = cast.get_actors("banners")
-        missiles = cast.get_actors("missiles")
+        missiles = cast.get_actors("missiles1")
+        missiles.extend(cast.get_actors("missiles2"))
 
         self._video_service.clear_buffer()
         

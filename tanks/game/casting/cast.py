@@ -1,3 +1,4 @@
+import constants
 from game.casting.item import Item
 from game.shared.point import Point
 
@@ -91,50 +92,135 @@ class Cast:
     
     def set_stage(self, choice):
         if choice == 1:
-            x = 200
-            y = 50
-            count = 0
-            while count < 825:
-                if count == 75:
-                    y = 250
-                if count == 150:
-                    y = 450
-                if count == 225:
-                    y = 1
-                    x = 450
-                if count == 300:
-                    y = 200
-                if count == 475:
-                    y = 500
-                if count == 600:
-                    x = 700
-                    y = 50
-                if count == 675:
-                    y = 250
-                if count == 750:
-                    y = 450
-                item = Item()
-                item.set_position(Point(x, y))
+            start_x = 10
+            start_y = 5
+            for i in range(start_y, start_y + 10):
+                x = start_x * constants.CELL_SIZE
+                y = i * constants.CELL_SIZE
+                item = Item(Point(x, y), "O")
                 self.add_actor("items", item)
-                count += 1
-                y += 1
+
+            start_y = 25
+            for i in range(start_y, start_y + 10):
+                x = start_x * constants.CELL_SIZE
+                y = i * constants.CELL_SIZE
+                item = Item(Point(x, y), "O")
+                self.add_actor("items", item)
+
+            start_x = 30
+            start_y = 15
+            for i in range(start_y, start_y + 10):
+                x = start_x * constants.CELL_SIZE
+                y = i * constants.CELL_SIZE
+                item = Item(Point(x, y), "O")
+                self.add_actor("items", item)
+
+            start_x = 50
+            start_y = 5
+            for i in range(start_y, start_y + 10):
+                x = start_x * constants.CELL_SIZE
+                y = i * constants.CELL_SIZE
+                item = Item(Point(x, y), "O")
+                self.add_actor("items", item)
+
+            start_y = 25
+            for i in range(start_y, start_y + 10):
+                x = start_x * constants.CELL_SIZE
+                y = i * constants.CELL_SIZE
+                item = Item(Point(x, y), "O")
+                self.add_actor("items", item)
+
+
+            # x = 200
+            # y = 50
+            # count = 0
+            # while count < 825:
+            #     if count == 75:
+            #         y = 250
+            #     if count == 150:
+            #         y = 450
+            #     if count == 225:
+            #         y = 1
+            #         x = 450
+            #     if count == 300:
+            #         y = 200
+            #     if count == 475:
+            #         y = 500
+            #     if count == 600:
+            #         x = 700
+            #         y = 50
+            #     if count == 675:
+            #         y = 250
+            #     if count == 750:
+            #         y = 450
+            #     item = Item()
+            #     item.set_position(Point(x, y))
+            #     self.add_actor("items", item)
+            #     count += 1
+            #     y += 1
         elif choice == 2:
-            x = 200
-            y = 100
-            count = 0
-            while count < 500:
-                if count == 100:
-                    y = 350
-                    x = 200
-                if count == 250:
-                    y = 100
-                    x = 550
-                if count == 400:
-                    y = 400
-                    x = 550
-                item = Item()
-                item.set_position(Point(x, y))
+            start_x = 5
+            start_y = 15
+            for i in range(10):
+                x = (start_x + i) * constants.CELL_SIZE
+                y = (start_y - i) * constants.CELL_SIZE
+                item = Item(Point(x, y), "/")
                 self.add_actor("items", item)
-                count += 1
-                y += 1
-                x += 1
+
+            start_x = 5
+            start_y = 26
+            for i in range(10):
+                x = (start_x + i) * constants.CELL_SIZE
+                y = (start_y + i) * constants.CELL_SIZE
+                item = Item(Point(x, y), "\\")
+                self.add_actor("items", item)
+
+            start_x = constants.COLUMNS - 5
+            start_y = 15
+            for i in range(10):
+                x = (start_x - i) * constants.CELL_SIZE
+                y = (start_y - i) * constants.CELL_SIZE
+                item = Item(Point(x, y), "\\")
+                self.add_actor("items", item)
+
+            start_x = constants.COLUMNS - 5
+            start_y = 26
+            for i in range(10):
+                x = (start_x - i) * constants.CELL_SIZE
+                y = (start_y + i) * constants.CELL_SIZE
+                item = Item(Point(x, y), "/")
+                self.add_actor("items", item)
+
+            start_x1 = 30-5
+            start_y1 = 20-5
+            start_x2 = 30-5
+            start_y2 = 20+5
+            for i in range(11):
+                x1 = (start_x1 + i) * constants.CELL_SIZE
+                y1 = (start_y1 + i) * constants.CELL_SIZE
+                x2 = (start_x2 + i) * constants.CELL_SIZE
+                y2 = (start_y2 - i) * constants.CELL_SIZE
+                item = Item(Point(x1, y1), "\\")
+                self.add_actor("items", item)
+                item = Item(Point(x2, y2), "/")
+                self.add_actor("items", item)
+           
+            # x = 200
+            # y = 100
+            # count = 0
+            # while count < 500:
+            #     if count == 100:
+            #         y = 350
+            #         x = 200
+            #     if count == 250:
+            #         y = 100
+            #         x = 550
+            #     if count == 400:
+            #         y = 400
+            #         x = 550
+            #     item = Item()
+            #     item.set_position(Point(x, y))
+            #     self.add_actor("items", item)
+            #     count += 1
+            #     y += 1
+            #     x += 1

@@ -13,22 +13,26 @@ class Item(Actor):
     Attributes:
         _points (int): The number of points the item is worth.
     """
-    def __init__(self):
+    def __init__(self, position = False, text = "O", color = constants.GREY):
         "Constructs a new Item."
         super().__init__()
         self._points = 0
-        self.set_text("@")
-        self.set_color(constants.RED)
-        self.reset()
+        if not position:
+            position = Point(0,0)
+        self.set_position(position)
+        self.set_text(text)
+        self.set_color(color)
+        # self.reset()
         
     def reset(self):
         """Selects a random position and points that the item is worth."""
-        self._points = random.randint(1, 8)
-        x = random.randint(1, constants.COLUMNS - 1)
-        y = random.randint(1, constants.ROWS - 1)
-        position = Point(x, y)
-        position = position.scale(constants.CELL_SIZE)
-        self.set_position(position)
+        # self._points = random.randint(1, 8)
+        # x = random.randint(1, constants.COLUMNS - 1)
+        # y = random.randint(1, constants.ROWS - 1)
+        # position = Point(x, y)
+        # position = position.scale(constants.CELL_SIZE)
+        # self.set_position(position)
+        pass
         
     def get_points(self):
         """Gets the points the item is worth.

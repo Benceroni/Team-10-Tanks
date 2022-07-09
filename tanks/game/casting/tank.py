@@ -24,19 +24,19 @@ class Tank(Actor):
         super().__init__()
         self._player_number = player_number
         self._color = color
-        # self._wall_active = True
         self._text = constants.TANK_SHAPE
         x = int(constants.CELL_SIZE * constants.PLAYER_START[self._player_number].get_x())
         y = int(constants.CELL_SIZE * constants.PLAYER_START[self._player_number].get_y())
         self._position = Point(x, y)
+        self._recoil = constants.TANK_RECOIL_RATE
         self._reload_gun()
-        self._facing = Point(0, round(-0.5 * constants.CELL_SIZE)) # Set the initial facing direction to UP.
+        self._facing = Point(0, -1) # Set the initial facing direction to UP.
 
 
     def _reload_gun(self):
         """Reloads the player's gun with ammunition and resets the reload timer.
         """
-        self._num_rounds = 6
+        self._num_rounds = constants.TANK_AMMO_ROUNDS
         self._reload_time = 2 * (constants.FRAME_RATE)
 
 
@@ -61,14 +61,17 @@ class Tank(Actor):
 
 
     def move_next(self):
+        """Performs all of the move_next actions of the parent, plus updating the gun status
+        and gun timers as needed.
+        """
         super().move_next()
+        if self._recoil < constants.TANK_RECOIL_RATE:
+            self._recoil += 1
         if self._num_rounds < 1:
-            print(f"Time to reload player {self._player_number}: {self._reload_time} ticks.")
+
             self._reload_time -= 1
             if self._reload_time == 0:
-                self._reload_gun()
-   
-        
+                self._reload_gun()  
 
 
     def fire_missile(self, cast):
@@ -79,15 +82,16 @@ class Tank(Actor):
             cast (Cast): A list of Actors in acting groups that we will add the missile to. 
             velocity (Point): The initial Vx, Vy velocity of the missile. 
         """
-        if self._num_rounds > 0:
-            velocity = self._facing.scale(constants.MISSILE_SPEED)
+        if self._num_rounds > 0 and self._recoil == constants.TANK_RECOIL_RATE:
+            velocity = self._facing.scale(constants.MISSILE_SPEED * constants.CELL_SIZE)
             missile = Missile(self._player_number, self._position, velocity, self._color)
-            cast.add_actor("missiles", missile)
+            cast.add_actor(f"missiles{self._player_number}", missile)
             self._num_rounds -= 1
-            print(f"Rounds left for player {self._player_number}: {self._num_rounds}")
-            print(f"Missile fired by player {self._player_number}")
-            print(f"    FROM: {self._position.get_x()},{self._position.get_y()}")
-            print(f"     DIR: {velocity.get_x()},{velocity.get_y()}")
+            self._recoil = 0
+            # print(f"Rounds left for player {self._player_number}: {self._num_rounds}")
+            # print(f"Missile fired by player {self._player_number}")
+            # print(f"    FROM: {self._position.get_x()},{self._position.get_y()}")
+            # print(f"     DIR: {velocity.get_x()},{velocity.get_y()}")
 
 
 

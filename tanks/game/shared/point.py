@@ -31,6 +31,20 @@ class Point:
         x = self._x + other.get_x()
         y = self._y + other.get_y()
         return Point(x, y)
+
+
+    def abs_sub(self, other):
+        """Gets a new point that is the absolute difference of this and the given one.
+
+        Args:
+            other (Point): The Point to subtract.
+
+        Returns:
+            Point: A new Point that is the absolute difference.
+        """
+        x = abs(self._x - other.get_x())
+        y = abs(self._y - other.get_y())
+        return Point(x, y)
     
 
     def equals(self, other):
@@ -43,6 +57,7 @@ class Point:
             boolean: True if both x and y are equal; false if otherwise.
         """
         return self._x == other.get_x() and self._y == other.get_y()
+
 
     def get_x(self):
         """Gets the horizontal distance.

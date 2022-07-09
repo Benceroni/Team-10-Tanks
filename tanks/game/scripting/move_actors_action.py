@@ -21,7 +21,8 @@ class MoveActorsAction(Action):
 
         tanks = cast.get_actors("tanks")
         walls = cast.get_actors("items")
-        missiles = cast.get_actors("missiles")
+        missiles = cast.get_actors("missiles1")
+        missiles.extend(cast.get_actors("missiles2"))
 
         if collision_checker.handle_tank_collision(cast, tanks[0], tanks[1]):
             tanks[0].set_velocity(Point(0, 0))
@@ -35,13 +36,15 @@ class MoveActorsAction(Action):
             missile.move_next()
 
         # Clean up dead missiles
-        missiles = cast.get_actors("missiles")
+        missiles1 = cast.get_actors("missiles1")
+        missiles2 = cast.get_actors("missiles2")
 
-        for missile in missiles:
+        for missile in missiles1:
             if missile.get_range() <= 0:
-                cast.remove_actor("missiles", missile)
+                missile.explode(cast)
+                cast.remove_actor("missiles1", missile)
 
-
-        # tanks = cast.get_actors("tanks")
-        # for tank in tanks:
-        #     tank.grow_tail(1)
+        for missile in missiles2:
+            if missile.get_range() <= 0:
+                missile.explode(cast)
+                cast.remove_actor("missiles2", missile)

@@ -3,6 +3,7 @@ from game.casting.banner import Banner
 from game.scripting.action import Action
 from game.shared.point import Point
 from game.shared.color import Color
+from game.casting.missile import Missile
 
 class HandleCollisionsAction(Action):
     """
@@ -29,28 +30,29 @@ class HandleCollisionsAction(Action):
             script (Script): The script of Actions in the game.
         """
         if not self._is_game_over:
-            self._handle_item_collision(cast)
-            self._handle_missile_collision(cast)
+            # self._handle_item_collision(cast)
+            self._handle_missile_tank_collision(cast)
+            self._handle_missile_wall_collision(cast)
             self._handle_game_over(cast)
 
-    # It looks like Dallas used the "items" category for the walls, so we may implement this.
+    # It looks like Dallas used the "items" category for the walls...
     def _handle_item_collision(self, cast):
-        """Unused right now, but could allow for possibility of picking up bonuses,
-        power-ups, other obstacles, etc...?
+        # """Unused right now, but could allow for possibility of picking up bonuses,
+        # power-ups, other obstacles, etc...?
         
-        Args:
-            cast (Cast): The cast of Actors in the game.
-        """
-        items = cast.get_actors("items")
-        tank1 = cast.get_actor("tanks", 0)
-        tank2 = cast.get_actor("tanks", 1)
+        # Args:
+        #     cast (Cast): The cast of Actors in the game.
+        # """
+        # items = cast.get_actors("items")
+        # tank1 = cast.get_actor("tanks", 0)
+        # tank2 = cast.get_actor("tanks", 1)
         
-        for item in items:
-            if tank1.get_position().equals(item.get_position()):
-                print("Player 1 is touching a wall!")
-            if tank2.get_position().equals(item.get_position()):
-                print("Player 2 is touching a wall!")
-        
+        # for item in items:
+        #     if tank1.get_position().equals(item.get_position()):
+        #         print("Player 1 is touching a wall!")
+        #     if tank2.get_position().equals(item.get_position()):
+        #         print("Player 2 is touching a wall!")
+        pass
 
     def _check_collision(self, thing_1, thing_2):
         """Check if two things has collided either one segment or another.
@@ -79,24 +81,44 @@ class HandleCollisionsAction(Action):
             self._winning_color = constants.GREY_80PCT
 
 
-    def _check_possible_collision(self, thing_1, thing_2):
-        """Check if a thing has collided with another thing.
+    def _check_possible_collision(self, moving_thing, other_thing, tolerance):
+        """Check if a moving thing might collide with another thing.
+
+        Args:
+            moving_thing (Actor): A thing that is actively about to move and has a velocity.
+            other_thing (Actor): A thing that might be moving or not, but is considered 
+                                 stationary for the purpose of this evaluation.
+            tolerance (int): A pixel amount of padding (or not) that will make a collision
+                             more (or less) likely.
         
         Returns: (boolean) True if collision would occur.
         """
-        x = (thing_1.get_position().get_x() + thing_1.get_velocity().get_x()) % constants.MAX_X
-        y = (thing_1.get_position().get_y() + thing_1.get_velocity().get_y()) % constants.MAX_Y
-        x_collides = False
-        y_collides = False
+        ## What if we simply subtract the two points and see if the difference is within a certain tolerance?
+        mov_position = moving_thing.get_position()
+        mov_velocity = moving_thing.get_velocity()
+        new_pos = mov_position.add(mov_velocity)
 
-        if x >= thing_2.get_position().get_x() - 8 and x <= thing_2.get_position().get_x() + 8:
-            x_collides = True
+        other_position = other_thing.get_position()
+        distance = new_pos.abs_sub(other_position)
 
-        if y >= thing_2.get_position().get_y() - 8 and y <= thing_2.get_position().get_y() + 8:
-            y_collides = True
+        is_impact = (distance.get_x() <= tolerance) and (distance.get_y() <= tolerance)
 
-        if x_collides == True and y_collides == True:
-            return True
+        return is_impact
+
+        # ## Old code in case I need to refer to it.
+        # x = (moving_thing.get_position().get_x() + moving_thing.get_velocity().get_x()) % constants.MAX_X
+        # y = (moving_thing.get_position().get_y() + moving_thing.get_velocity().get_y()) % constants.MAX_Y
+        # x_collides = False
+        # y_collides = False
+
+        # if x >= other_thing.get_position().get_x() - constants.CELL_BUFFER and x <= other_thing.get_position().get_x() + constants.CELL_BUFFER:
+        #     x_collides = True
+
+        # if y >= other_thing.get_position().get_y() - constants.CELL_BUFFER and y <= other_thing.get_position().get_y() + constants.CELL_BUFFER:
+        #     y_collides = True
+
+        # if x_collides == True and y_collides == True:
+        #     return True
 
 
     def handle_tank_collision(self, cast, tank, opposite_tank):
@@ -111,36 +133,78 @@ class HandleCollisionsAction(Action):
 
         #Checks the collisions
         for wall in walls:
-            if self._check_possible_collision(tank, wall):
+            if self._check_possible_collision(tank, wall, constants.WALL_BUBBLE):
                 return True
             
-            elif self._check_possible_collision(tank, opposite_tank):
+            elif self._check_possible_collision(tank, opposite_tank, constants.WALL_BUBBLE):
                 return True
 
         return False
 
 
-    def _handle_missile_collision(self, cast):
+    def _collides_with_wall(self, wall_list, thing):
+        """Checks to see if our thing has collides with any member of wall_list.
+        Returns True as soon as possible, or False if no collision.
+        
+        Args:
+            wall_list list(Actors): All of the wall objects in a list to be checked against.
+            thing (Any Actor): The thing that we think might have made collision.
+        """
+        for wall in wall_list:
+            if self._check_possible_collision(thing, wall, constants.WALL_BUBBLE):
+                return True
+
+        return False
+
+
+    def _handle_missile_wall_collision(self, cast):
+        """Sets the game over flag if the tank collides with one of its segments.
+        
+        Args:
+            cast (Cast): The cast of Actors in the game.
+        """
+        walls = cast.get_actors("items")
+        missiles1 = cast.get_actors("missiles1")
+        missiles2 = cast.get_actors("missiles2")
+
+        for missile in missiles1:        
+            if self._collides_with_wall(walls, missile):
+                missile.explode(cast)
+                cast.remove_actor("missiles1", missile)
+
+        for missile in missiles2:        
+            if self._collides_with_wall(walls, missile):
+                missile.explode(cast)
+                cast.remove_actor("missiles2", missile)
+    
+    
+    def _handle_missile_tank_collision(self, cast):
         """Sets the game over flag if the tank collides with one of its segments.
         
         Args:
             cast (Cast): The cast of Actors in the game.
         """
         tanks = cast.get_actors("tanks")
-        missiles = cast.get_actors("missiles")
+        missiles1 = cast.get_actors("missiles1")
+        missiles2 = cast.get_actors("missiles2")
         
         tank1 = tanks[0]
         tank2 = tanks[1]
-        
-        for missile in missiles:
-            if self._check_possible_collision(tank1, missile):
+
+        for missile in missiles2:
+            if self._check_possible_collision(tank1, missile, constants.TANK_BUBBLE):
                 # tank1.apply_damage(points)
+                missile.explode(cast)
+                cast.remove_actor("missiles2", missile)
                 self._is_game_over = True
                 self._set_winner(2)
 
-            if self._check_possible_collision(tank2, missile):
+        for missile in missiles1:
+            if self._check_possible_collision(tank2, missile, constants.TANK_BUBBLE):
                 # tank2.apply_damage(points)
                 self._is_game_over = True
+                missile.explode(cast)
+                cast.remove_actor("missiles1", missile)
                 # Check if both players triggered collision within the exact same frame...
                 if self._winner == "":
                     self._set_winner(1)
