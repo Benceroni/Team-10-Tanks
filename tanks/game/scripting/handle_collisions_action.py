@@ -14,13 +14,14 @@ class HandleCollisionsAction(Action):
 
     Attributes:
         _is_game_over (boolean): Whether or not the game is over.
+        _winner (int): Keeps track of which person won. 
     """
 
     def __init__(self):
-        """Constructs a new HandleCollisionsAction."""
+        """Constructs a new HandleCollisionsAction.
+        """
         self._is_game_over = False
         self._winner = ""
-        self._winning_color = constants.GREY_80PCT
 
     def execute(self, cast, script):
         """Executes the handle collisions action.
@@ -35,7 +36,7 @@ class HandleCollisionsAction(Action):
             self._handle_missile_wall_collision(cast)
             self._handle_game_over(cast)
 
-    # It looks like Dallas used the "items" category for the walls...
+
     def _handle_item_collision(self, cast):
         # """Unused right now, but could allow for possibility of picking up bonuses,
         # power-ups, other obstacles, etc...?
@@ -49,9 +50,9 @@ class HandleCollisionsAction(Action):
         
         # for item in items:
         #     if tank1.get_position().equals(item.get_position()):
-        #         print("Player 1 is touching a wall!")
+        #         print("Player 1 is touching an item!")
         #     if tank2.get_position().equals(item.get_position()):
-        #         print("Player 2 is touching a wall!")
+        #         print("Player 2 is touching an item!")
         pass
 
     def _check_collision(self, thing_1, thing_2):
@@ -72,53 +73,47 @@ class HandleCollisionsAction(Action):
         """
         if player_num == 1:
             self._winner = "Player 1"
-            self._winning_color = constants.GREEN_80PCT
+            self._winning_color = constants.PLAYER_COLORS[player_num]['winner'].copy(200)
         elif player_num == 2:
             self._winner = "Player 2"
-            self._winning_color = constants.RED_80PCT
+            self._winning_color = constants.PLAYER_COLORS[player_num]['winner'].copy(200)
         else:
             self._winner = "Nobody"
-            self._winning_color = constants.GREY_80PCT
+            self._winning_color = constants.PLAYER_COLORS[player_num]['winner'].copy(200)
 
 
     def _check_possible_collision(self, moving_thing, other_thing, tolerance):
-        """Check if a moving thing might collide with another thing.
+        """Check if a moving thing is colliding or might collide with another thing.
 
         Args:
-            moving_thing (Actor): A thing that is actively about to move and has a velocity.
-            other_thing (Actor): A thing that might be moving or not, but is considered 
-                                 stationary for the purpose of this evaluation.
-            tolerance (int): A pixel amount of padding (or not) that will make a collision
-                             more (or less) likely.
+            moving_thing (Actor):   A thing that is actively moving and has a velocity.
+            
+            other_thing (Actor):    A thing that might be moving or not, but is considered 
+                                    stationary for the purpose of this evaluation.
+
+            tolerance (int):        A pixel amount of padding (or not) that will make a collision
+                                    more (or less) likely.
         
-        Returns: (boolean) True if collision would occur.
+        Returns: (boolean) True if collision is occuring or will occur.
         """
-        ## What if we simply subtract the two points and see if the difference is within a certain tolerance?
-        mov_position = moving_thing.get_position()
-        mov_velocity = moving_thing.get_velocity()
-        new_pos = mov_position.add(mov_velocity)
-
+        # Evaluate the curent distance two things are from each other
+        # (or will be from each other if one is moving) by subtracting
+        # one position from the other.
+        current_pos = moving_thing.get_position()
+        current_velocity = moving_thing.get_velocity()
+        future_pos = current_pos.add(current_velocity)
+        
         other_position = other_thing.get_position()
-        distance = new_pos.abs_sub(other_position)
 
-        is_impact = (distance.get_x() <= tolerance) and (distance.get_y() <= tolerance)
+        distance_now = current_pos.abs_sub(other_position)
+        distance_future = future_pos.abs_sub(other_position)
 
-        return is_impact
+        # If it is within a certain threshold (or zero), we have a collision.
+        is_impacting = (distance_now.get_x() <= tolerance) and (distance_now.get_y() <= tolerance)
+        will_impact = (distance_future.get_x() <= tolerance) and (distance_future.get_y() <= tolerance)
 
-        # ## Old code in case I need to refer to it.
-        # x = (moving_thing.get_position().get_x() + moving_thing.get_velocity().get_x()) % constants.MAX_X
-        # y = (moving_thing.get_position().get_y() + moving_thing.get_velocity().get_y()) % constants.MAX_Y
-        # x_collides = False
-        # y_collides = False
-
-        # if x >= other_thing.get_position().get_x() - constants.CELL_BUFFER and x <= other_thing.get_position().get_x() + constants.CELL_BUFFER:
-        #     x_collides = True
-
-        # if y >= other_thing.get_position().get_y() - constants.CELL_BUFFER and y <= other_thing.get_position().get_y() + constants.CELL_BUFFER:
-        #     y_collides = True
-
-        # if x_collides == True and y_collides == True:
-        #     return True
+        collision = is_impacting or will_impact
+        return collision
 
 
     def handle_tank_collision(self, cast, tank, opposite_tank):
@@ -135,10 +130,8 @@ class HandleCollisionsAction(Action):
         for wall in walls:
             if self._check_possible_collision(tank, wall, constants.WALL_BUBBLE):
                 return True
-            
             elif self._check_possible_collision(tank, opposite_tank, constants.WALL_BUBBLE):
                 return True
-
         return False
 
 

@@ -1,30 +1,86 @@
 from game.shared.color import Color
 from game.shared.point import Point
 
-COLUMNS = 60
-ROWS = 40
+########## COLORS #########
+#
+WHITE =         Color(255, 255, 255)
+RED =           Color(255, 0, 0)
+YELLOW =        Color(255, 255, 0)
+ORANGE =        Color(255, 180, 0)
+GREEN =         Color(0, 255, 0)
+CYAN =          Color(0, 255, 255)
+BLUE =          Color(100, 100, 255)
+MAGENTA =       Color(255, 0, 255)
+
+DK_RED =        Color(140, 0 ,0)
+DK_ORANGE =     Color(140, 80, 0)
+DK_GREEN =      Color(0, 140, 0)
+DK_CYAN =       Color(0, 140, 140)
+DK_BLUE =       Color(60, 60, 140)
+DK_MAGENTA =    Color(140, 0, 140)
+
+GREY =          Color(140, 140, 140)
+DK_GREY =       Color(80, 80, 80)
+
+
+
+########## SCREEN / BOARD / VIDEO DEFINITIONS ##########
+#
+# Size of a cell in pixels.
 CELL_SIZE = 20
-WALL_BUFFER = 1
-WALL_BUBBLE = CELL_SIZE + WALL_BUFFER
+FONT_SIZE = 20
+
+# Number of cells across.
+COLUMNS = 60
+
+# number of cells tall.
+ROWS = 40
+
+# Overall size of window in pixels (calculated).
 MAX_X = CELL_SIZE * COLUMNS
 MAX_Y = CELL_SIZE * ROWS
-FRAME_RATE = 30  # May need to go higher since we are processing more....
-FONT_SIZE = 20
+
+# Game speed / redraw frame rate. (Target, not guaranteed.) 
+FRAME_RATE = 30 
+
+# Window title
 CAPTION = "Tanks"
 
-# Textual bullet shapes are defined for two directions:
-#   0: left/right
-#   1: up/down
-# and consist of a series of three shapes: 
-#   0: head
-#   1: mid
-#   2: tail
+
+
+########## WALL DEFINITIONS ##########
+#
+# Buffer size of a wall object in pixels.
+WALL_BUFFER = -1
+
+# Calculated overall wall object boundary.
+WALL_BUBBLE = CELL_SIZE + WALL_BUFFER
+
+# Wall color(s).
+WALL_COLOR = [
+    Color(128, 128, 128)
+]
+
+
+
+########## MISSILE DEFINITIONS ##########
+#
+# Missile shapes used for flying missile animation
 MISSILE_SHAPES = [
     ["*", chr(164), "X"],
 ]
+
+# MISSILE SPEED measured as percentage of cell size.
 MISSILE_SPEED = 0.5
-MISSILE_RANGE = 40
-MISSILE_EXPLOSION_POWER = 2
+
+# Missile range is number of frame steps a missile will travel before exploding.
+MISSILE_RANGE = 50
+
+# Explosion factor adjusts the following vector table to fine tune overall speed
+# of explosion shrapnel.
+MISSILE_EXPLOSION_FACTOR = 2
+
+# Vectors that define starting vectors for explosion shrapnel.
 MISSILE_EXPLOSION_VECTORS = [
     [ 0.00, -2.00], # N
     [ 0.75, -1.75], # NNE
@@ -43,33 +99,66 @@ MISSILE_EXPLOSION_VECTORS = [
     [-2.00, -2.00], # NW
     [-0.75, -1.75]  # NNW
 ]
+
+# Builds an adjusted list of velocities calculated with the explosion factor.
 MISSILE_EXPLOSION_VELOCITIES = []
 for vect in MISSILE_EXPLOSION_VECTORS:
     v_x = round(vect[0] * CELL_SIZE / 2)
     v_y = round(vect[1] * CELL_SIZE / 2)
     MISSILE_EXPLOSION_VELOCITIES.append(Point(v_x, v_y))
 
+
+
+######## TANK DEFINITIONS ##########
+#
+# Character defining the shape of the tank for a text-drawn game.
 TANK_SHAPE = chr(169) # Copyright symbol (C)
-TANK_LENGTH = 1
+
+# TANK SPEED measured in percentage of cell size.
 TANK_SPEED = 0.25
+
+# Number of ammunition rounds to be fired before reload.
 TANK_AMMO_ROUNDS = 4
-TANK_RECOIL_RATE = 5
+
+# Number of frames between consecutive rounds.
+TANK_REPEAT_RATE = 5
+
+# Number of seconds it takes to reload a new set of rounds.
+TANK_RELOAD_RATE = 3
+
+# The buffer measuremment applied to a tank (in pixels).
 TANK_BUFFER = -10
+
+# The overall bubble boundary around a tank (in pixels).
 TANK_BUBBLE = CELL_SIZE + TANK_BUFFER
 
+
+
+########## PLAYER DEFINITIONS ##########
+#
+# Player start positions. Player 0 is not used and can be any Point value.
 PLAYER_START = [
     Point(30, 20),
     Point(15, 10),
     Point(45, 30)
 ]
 
-# Colors
-WHITE = Color(255, 255, 255)
-RED = Color(255, 0, 0)
-YELLOW = Color(255, 255, 0)
-GREEN = Color(0, 255, 0)
-GREY = Color(128, 128, 128)
-GREY_80PCT = Color(100, 100, 100, 200) 
-
-RED_80PCT = Color(128, 0, 0, 200)
-GREEN_80PCT = Color(0, 128, 0, 200)
+# Player Tank Colors is a list of dictionary items. The 'wait' color is 
+# used when the player is out of ammo and waiting for reload.
+PLAYER_COLORS = [
+    {
+        'wait': DK_GREY,
+        'ready': GREY,
+        'winner': DK_GREY
+    },
+    {
+        'wait': DK_BLUE,
+        'ready': BLUE,
+        'winner': DK_BLUE,
+    },
+    {
+        'wait': DK_ORANGE,
+        'ready': ORANGE,
+        'winner': DK_ORANGE,
+    }
+]

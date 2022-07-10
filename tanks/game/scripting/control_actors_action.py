@@ -38,7 +38,6 @@ class ControlActorsAction(Action):
         tank1_y = 0
         tank2_x = 0
         tank2_y = 0
-        
 
         #Sets the movement of the first tank
         # left
@@ -94,5 +93,6 @@ class ControlActorsAction(Action):
 
         tank2.set_velocity(Point(tank2_x, tank2_y))
 
-        if self._keyboard_service.is_key_down('pause'):
-            breakpoint = True
+        # if self._keyboard_service.is_key_down('pause'):
+        #     # Set a breakpoint here, run in debug mode, and press pause key to stop program.
+        #     breakpoint = True

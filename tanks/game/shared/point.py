@@ -34,13 +34,13 @@ class Point:
 
 
     def abs_sub(self, other):
-        """Gets a new point that is the absolute difference of this and the given one.
+        """Gets the absolute difference of this point and the given one.
 
         Args:
             other (Point): The Point to subtract.
 
         Returns:
-            Point: A new Point that is the absolute difference.
+            Point: A new Point that represents the absolute difference between two points.
         """
         x = abs(self._x - other.get_x())
         y = abs(self._y - other.get_y())

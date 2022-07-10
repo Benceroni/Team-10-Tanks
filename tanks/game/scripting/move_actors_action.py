@@ -41,6 +41,7 @@ class MoveActorsAction(Action):
 
         for missile in missiles1:
             if missile.get_range() <= 0:
+                # When missiles die, they explode.
                 missile.explode(cast)
                 cast.remove_actor("missiles1", missile)
 

@@ -90,8 +90,40 @@ class Cast:
         if group in self._actors:
             self._actors[group].remove(actor)
     
+    # TODO: Needs to be moved to a Level or Stage class. Actors should be added to a group called "walls". 
     def set_stage(self, choice):
-        if choice == 1:
+        """Based on the choice argument, this draws a calculated playfield for the players.
+
+        Args:
+            choice (int): A number specifyiing which level map to draw.
+        """
+        if choice == 0:
+            # Nothing... Open field.
+            pass
+
+        elif choice == 1:
+            # Screen borders... No wrapping.
+            x1 = 0
+            x2 = (constants.COLUMNS - 1) * constants.CELL_SIZE
+            y1 = 0
+            y2 = (constants.ROWS -1) * constants.CELL_SIZE
+
+            for i in range(0, constants.COLUMNS):
+                x = constants.CELL_SIZE * i
+                item = Item(Point(x, y1), "O")
+                self.add_actor("items", item)
+                item = Item(Point(x, y2), "O")
+                self.add_actor("items", item)
+
+            for j in range(0, constants.ROWS):
+                y = constants.CELL_SIZE * j
+                item = Item(Point(x1, y), "O")
+                self.add_actor("items", item)
+                item = Item(Point(x2, y), "O")
+                self.add_actor("items", item)
+
+        elif choice == 2:
+            # Symetrically staggered vertical walls
             start_x = 10
             start_y = 5
             for i in range(start_y, start_y + 10):
@@ -130,35 +162,8 @@ class Cast:
                 item = Item(Point(x, y), "O")
                 self.add_actor("items", item)
 
-
-            # x = 200
-            # y = 50
-            # count = 0
-            # while count < 825:
-            #     if count == 75:
-            #         y = 250
-            #     if count == 150:
-            #         y = 450
-            #     if count == 225:
-            #         y = 1
-            #         x = 450
-            #     if count == 300:
-            #         y = 200
-            #     if count == 475:
-            #         y = 500
-            #     if count == 600:
-            #         x = 700
-            #         y = 50
-            #     if count == 675:
-            #         y = 250
-            #     if count == 750:
-            #         y = 450
-            #     item = Item()
-            #     item.set_position(Point(x, y))
-            #     self.add_actor("items", item)
-            #     count += 1
-            #     y += 1
-        elif choice == 2:
+        elif choice == 3:
+            # Diagonal Walls
             start_x = 5
             start_y = 15
             for i in range(10):
@@ -204,23 +209,3 @@ class Cast:
                 self.add_actor("items", item)
                 item = Item(Point(x2, y2), "/")
                 self.add_actor("items", item)
-           
-            # x = 200
-            # y = 100
-            # count = 0
-            # while count < 500:
-            #     if count == 100:
-            #         y = 350
-            #         x = 200
-            #     if count == 250:
-            #         y = 100
-            #         x = 550
-            #     if count == 400:
-            #         y = 400
-            #         x = 550
-            #     item = Item()
-            #     item.set_position(Point(x, y))
-            #     self.add_actor("items", item)
-            #     count += 1
-            #     y += 1
-            #     x += 1

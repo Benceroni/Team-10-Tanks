@@ -20,24 +20,17 @@ class Tank(Actor):
     
         All other attributes and methods inherited from Actor.
     """
-    def __init__(self, color, player_number=0):
+    def __init__(self, player_number=0):
         super().__init__()
         self._player_number = player_number
-        self._color = color
+        self._color = constants.PLAYER_COLORS[player_number]['ready']
         self._text = constants.TANK_SHAPE
         x = int(constants.CELL_SIZE * constants.PLAYER_START[self._player_number].get_x())
         y = int(constants.CELL_SIZE * constants.PLAYER_START[self._player_number].get_y())
         self._position = Point(x, y)
-        self._recoil = constants.TANK_RECOIL_RATE
+        self._fire_delay = constants.TANK_REPEAT_RATE
         self._reload_gun()
         self._facing = Point(0, -1) # Set the initial facing direction to UP.
-
-
-    def _reload_gun(self):
-        """Reloads the player's gun with ammunition and resets the reload timer.
-        """
-        self._num_rounds = constants.TANK_AMMO_ROUNDS
-        self._reload_time = 2 * (constants.FRAME_RATE)
 
 
     def set_facing(self, velocity):
@@ -48,7 +41,6 @@ class Tank(Actor):
         Args:
             velocity (Point): defines a facing direction based on the last direction moved.
         """
-        
         new_x = velocity.get_x() 
         new_y = velocity.get_y()
         
@@ -60,18 +52,40 @@ class Tank(Actor):
         self._facing = Point(new_x, new_y)
 
 
+    def _reload_gun(self):
+        """Reloads the player's gun with ammunition and resets the reload timer.
+        """
+        self._num_rounds = constants.TANK_AMMO_ROUNDS
+        self._reload_time = round(constants.TANK_RELOAD_RATE * constants.FRAME_RATE)
+
+
+    def _do_fire_delay(self):
+        """Handle the delay between firing consectutive rounds.
+        """
+        if self._fire_delay < constants.TANK_REPEAT_RATE:
+            self._fire_delay += 1
+
+
+    def _do_reload_delay(self):
+        """If out of rounds, start timer to reload a set of rounds, 
+        then activate actual reload
+        """
+        if self._num_rounds < 1:
+            self.set_color(constants.PLAYER_COLORS[self._player_number]['wait'])
+            self._reload_time -= 1
+            if self._reload_time == 0:
+                self._reload_gun()
+                self.set_color(constants.PLAYER_COLORS[self._player_number]['ready'])
+
+
     def move_next(self):
         """Performs all of the move_next actions of the parent, plus updating the gun status
         and gun timers as needed.
         """
         super().move_next()
-        if self._recoil < constants.TANK_RECOIL_RATE:
-            self._recoil += 1
-        if self._num_rounds < 1:
-
-            self._reload_time -= 1
-            if self._reload_time == 0:
-                self._reload_gun()  
+        self._do_fire_delay()
+        self._do_reload_delay()        
+          
 
 
     def fire_missile(self, cast):
@@ -82,17 +96,12 @@ class Tank(Actor):
             cast (Cast): A list of Actors in acting groups that we will add the missile to. 
             velocity (Point): The initial Vx, Vy velocity of the missile. 
         """
-        if self._num_rounds > 0 and self._recoil == constants.TANK_RECOIL_RATE:
+        if self._num_rounds > 0 and self._fire_delay == constants.TANK_REPEAT_RATE:
             velocity = self._facing.scale(constants.MISSILE_SPEED * constants.CELL_SIZE)
             missile = Missile(self._player_number, self._position, velocity, self._color)
             cast.add_actor(f"missiles{self._player_number}", missile)
             self._num_rounds -= 1
-            self._recoil = 0
-            # print(f"Rounds left for player {self._player_number}: {self._num_rounds}")
-            # print(f"Missile fired by player {self._player_number}")
-            # print(f"    FROM: {self._position.get_x()},{self._position.get_y()}")
-            # print(f"     DIR: {velocity.get_x()},{velocity.get_y()}")
-
+            self._fire_delay = 0
 
 
 

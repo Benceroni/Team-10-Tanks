@@ -22,17 +22,25 @@ def main():
     # create the cast
     cast = Cast()
     # cast.add_actor("items", Item())
-    cast.add_actor("tanks", Tank(constants.GREEN, 1))
-    cast.add_actor("tanks", Tank(constants.RED, 2))
+    cast.add_actor("tanks", Tank(1))
+    cast.add_actor("tanks", Tank(2))
     cast.add_actor("scores", Score())
     cast.add_actor("scores", Score())
     
+    # TODO: set_stage() needs to be moved to a Level class or Stage class
     # Prompt for a stage 
-    # if stage = 1
-    # Stage 1: Symmetrical
-    # if stage = 2 
-    # Stage 2: Diagonals
-    cast.set_stage(1)
+    print("""
+TANKS - Map Choice
+-------------------------------------------
+0. No Map
+1. Closed Screen Borders
+2. Symmetrically Staggered Vertical Walls
+3. Diagonal Walls
+""")
+    user_choice = int(input("You choice: "))
+    if user_choice < 0 or user_choice > 3:
+        user_choice = 0   
+    cast.set_stage(user_choice)
 
     # start the game
     keyboard_service = KeyboardService()

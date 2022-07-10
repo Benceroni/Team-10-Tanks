@@ -61,8 +61,10 @@ class Missile(Actor):
 
 
     def move_next(self):
+        """Does normal Actor move_next() activities, and also decrements the range
+        remaining for this missile. 
+        """
         super().move_next()
-        # print(f"Range to live: {self._range}")
         self._range -= 1
         
 
@@ -81,11 +83,6 @@ class Missile(Actor):
                 flak.set_range(5)
                 flak.set_phase(self._phase - 1)
                 cast.add_actor(f"missiles{self._player}", flak)
-                # Can I do this?
-                
-            # cast.remove_actor(f"missiles{self._player}", self)
-
-
 
     ## For now all other methods inherited from Actor remain the same.
 
