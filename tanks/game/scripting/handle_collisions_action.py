@@ -1,9 +1,7 @@
 import constants
 from game.casting.banner import Banner
 from game.scripting.action import Action
-from game.shared.point import Point
-from game.shared.color import Color
-from game.casting.missile import Missile
+
 
 class HandleCollisionsAction(Action):
     """
@@ -73,13 +71,13 @@ class HandleCollisionsAction(Action):
         """
         if player_num == 1:
             self._winner = "Player 1"
-            self._winning_color = constants.PLAYER_COLORS[player_num]['winner'].copy(200)
+            self._winning_color = constants.PLAYER_COLORS[player_num]['winner'].copy_set_alpha(200)
         elif player_num == 2:
             self._winner = "Player 2"
-            self._winning_color = constants.PLAYER_COLORS[player_num]['winner'].copy(200)
+            self._winning_color = constants.PLAYER_COLORS[player_num]['winner'].copy_set_alpha(200)
         else:
             self._winner = "Nobody"
-            self._winning_color = constants.PLAYER_COLORS[player_num]['winner'].copy(200)
+            self._winning_color = constants.PLAYER_COLORS[player_num]['winner'].copy_set_alpha(200)
 
 
     def _check_possible_collision(self, moving_thing, other_thing, tolerance):

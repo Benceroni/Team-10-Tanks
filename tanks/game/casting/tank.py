@@ -21,6 +21,11 @@ class Tank(Actor):
         All other attributes and methods inherited from Actor.
     """
     def __init__(self, player_number=0):
+        """Creates a new instance of a tank. 
+        
+        Args:
+            player_number: (Int) - A number referring to which player this will belong.
+        """
         super().__init__()
         self._player_number = player_number
         self._color = constants.PLAYER_COLORS[player_number]['ready']

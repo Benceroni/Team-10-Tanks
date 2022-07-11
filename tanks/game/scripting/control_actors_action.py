@@ -94,5 +94,5 @@ class ControlActorsAction(Action):
         tank2.set_velocity(Point(tank2_x, tank2_y))
 
         # if self._keyboard_service.is_key_down('pause'):
-        #     # Set a breakpoint here, run in debug mode, and press pause key to stop program.
+        #     # Set a breakpoint here, run in debug mode, and press the PAUSE key to stop program.
         #     breakpoint = True

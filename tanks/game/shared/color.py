@@ -44,7 +44,7 @@ class Color:
         self._alpha = value
 
 
-    def copy(self, alpha = -1):
+    def copy_set_alpha(self, alpha = -1):
         """Returns a new copy of itself, optionally with a different alpha.
         
         Args:
