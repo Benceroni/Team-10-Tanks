@@ -28,7 +28,7 @@ DK_GREY =       Color(80, 80, 80)
 #
 # Size of a cell in pixels.
 CELL_SIZE = 20
-FONT_SIZE = 20
+FONT_SIZE = CELL_SIZE
 
 # Number of cells across.
 COLUMNS = 60
