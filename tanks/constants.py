@@ -57,18 +57,14 @@ WALL_BUFFER = -1
 WALL_BUBBLE = CELL_SIZE + WALL_BUFFER
 
 # Wall color(s).
-WALL_COLOR = [
-    Color(128, 128, 128)
-]
+WALL_COLOR = GREY
 
 
 
 ########## MISSILE DEFINITIONS ##########
 #
 # Missile shapes used for flying missile animation
-MISSILE_SHAPES = [
-    ["*", chr(164), "X"],
-]
+MISSILE_SHAPES = ["*", chr(164), "X"]
 
 # MISSILE SPEED measured as percentage of cell size.
 MISSILE_SPEED = 0.5
@@ -78,7 +74,7 @@ MISSILE_RANGE = 50
 
 # Explosion factor adjusts the following vector table to fine tune overall speed
 # of explosion shrapnel.
-MISSILE_EXPLOSION_FACTOR = 2
+MISSILE_EXPLOSION_SCALE = 3
 
 # Vectors that define starting vectors for explosion shrapnel.
 MISSILE_EXPLOSION_VECTORS = [
@@ -100,11 +96,30 @@ MISSILE_EXPLOSION_VECTORS = [
     [-0.75, -1.75]  # NNW
 ]
 
+MISSILE_EXPLOSION_SHAPES = []
+for i in range(33, 48):
+    MISSILE_EXPLOSION_SHAPES.append(chr(i))
+for i in range(91, 97):
+    MISSILE_EXPLOSION_SHAPES.append(chr(i))
+for i in range(123, 127):
+    MISSILE_EXPLOSION_SHAPES.append(chr(i))
+for i in range(161, 192):
+    MISSILE_EXPLOSION_SHAPES.append(chr(i))
+MISSILE_EXPLOSION_SHAPES.append(chr(215))
+MISSILE_EXPLOSION_SHAPES.append(chr(216))
+MISSILE_EXPLOSION_SHAPES.append(chr(239))
+MISSILE_EXPLOSION_SHAPES.append(chr(247))
+MISSILE_EXPLOSION_SHAPES.append(chr(248))
+MISSILE_EXPLOSION_SHAPES.append(chr(254))
+
+# Defines how big of a blast is created when the missile explodes.
+MISSILE_BLAST_RANGE = 5
+
 # Builds an adjusted list of velocities calculated with the explosion factor.
 MISSILE_EXPLOSION_VELOCITIES = []
 for vect in MISSILE_EXPLOSION_VECTORS:
-    v_x = round(vect[0] * CELL_SIZE / 2)
-    v_y = round(vect[1] * CELL_SIZE / 2)
+    v_x = round(vect[0] * CELL_SIZE / MISSILE_EXPLOSION_SCALE)
+    v_y = round(vect[1] * CELL_SIZE / MISSILE_EXPLOSION_SCALE)
     MISSILE_EXPLOSION_VELOCITIES.append(Point(v_x, v_y))
 
 
@@ -118,7 +133,7 @@ TANK_SHAPE = chr(169) # Copyright symbol (C)
 TANK_SPEED = 0.25
 
 # Number of ammunition rounds to be fired before reload.
-TANK_AMMO_ROUNDS = 4
+TANK_AMMO_ROUNDS = 5
 
 # Number of frames between consecutive rounds.
 TANK_REPEAT_RATE = 5

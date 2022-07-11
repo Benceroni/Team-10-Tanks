@@ -1,4 +1,3 @@
-import random
 import constants
 from game.casting.actor import Actor
 from game.shared.point import Point
@@ -13,7 +12,7 @@ class Item(Actor):
     Attributes:
         _points (int): The number of points the item is worth.
     """
-    def __init__(self, position = False, text = "O", color = constants.GREY):
+    def __init__(self, position = False, text = "O", color = constants.WALL_COLOR):
         "Constructs a new Item."
         super().__init__()
         self._points = 0
