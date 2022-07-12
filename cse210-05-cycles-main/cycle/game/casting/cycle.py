@@ -101,26 +101,23 @@ class Cycle(Actor):
         """
         text = constants.CYCLE_SHAPE
         
-        for i in range(constants.CYCLE_LENGTH):
-            if self._player_number == 1:
-                x = int(constants.CELL_SIZE * 15)
-                y = int(constants.CELL_SIZE * 10)
-                position = Point(x - (i * constants.CELL_SIZE), y)
-                velocity = Point(1 * constants.CELL_SIZE, 0)
-            else:
-                x = int(constants.CELL_SIZE * 45)
-                y = int(constants.CELL_SIZE * 30)
-                position = Point(x + (i * constants.CELL_SIZE), y)
-                velocity = Point(-1 * constants.CELL_SIZE, 0)
-            
-            # Makes the head or lead segment yellow, to stand out.
-            color = constants.YELLOW
-            segment = Actor()
-            segment.set_position(position)
-            segment.set_velocity(velocity)
-            segment.set_text(text)
-            segment.set_color(color)
-            self._segments.append(segment)
+        if self._player_number == 1:
+            x = int(constants.CELL_SIZE * 15)
+            y = int(constants.CELL_SIZE * 10)
+            position = Point(x, y)
+            color = constants.GREEN
+        else:
+            x = int(constants.CELL_SIZE * 45)
+            y = int(constants.CELL_SIZE * 30)
+            position = Point(x, y)
+            color = constants.RED
+        
+        # Makes the head or lead segment yellow, to stand out.
+        segment = Actor()
+        segment.set_position(position)
+        segment.set_text(text)
+        segment.set_color(color)
+        self._segments.append(segment)
         
         
 
