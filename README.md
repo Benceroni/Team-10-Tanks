@@ -16,12 +16,11 @@ tank is played according to the following rules.
     - Player one moves using the W, S, A and D keys.
     - Player two moves using the I, K, J and L keys.
 
-- Each player's trail grows as they move.
-- Players try to maneuver so the opponent collides with their trail.
-- If a player collides with their own or their opponent's trail...
-    - A "game over" message is displayed in the middle of the screen.
-    - The tanks turn white.
-    - Players keep moving and turning but don't run into each other.
+- Players can press alt or ctrl on their side of the keyboard to shoot in the direction they are facing.
+- Missiles will explode on walls, other tanks, or after a set distance has been reached.
+- Player will lose the ability to shoot missiles for a short while after multiple shots have been fired. 
+- The first tank to be shot loses.
+
 
 ## Getting Started
 Make sure you have Python 3.8.0 or newer installed and running on your machine. Open a terminal and browse to the project's root folder. Start the program by running the following command.
