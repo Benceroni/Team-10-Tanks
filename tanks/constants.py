@@ -46,6 +46,11 @@ FRAME_RATE = 30
 # Window title
 CAPTION = "Tanks"
 
+# Health point positions.
+HEALTH_POINT_POSITION = [
+    Point(1, 0),
+    Point(50, 0)
+]
 
 
 ########## WALL DEFINITIONS ##########

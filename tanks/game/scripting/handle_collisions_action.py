@@ -1,6 +1,7 @@
 import constants
 from game.casting.banner import Banner
 from game.scripting.action import Action
+# from game.casting.health import Health
 
 
 class HandleCollisionsAction(Action):
@@ -178,24 +179,33 @@ class HandleCollisionsAction(Action):
         tanks = cast.get_actors("tanks")
         missiles1 = cast.get_actors("missiles1")
         missiles2 = cast.get_actors("missiles2")
+        healths = cast.get_actors("healths")
         
         tank1 = tanks[0]
         tank2 = tanks[1]
 
+        health1 = healths[0]
+        health2 = healths[1]
+
+        damage_points = 10
+
         for missile in missiles2:
             if self._check_possible_collision(tank1, missile, constants.TANK_BUBBLE):
-                # tank1.apply_damage(points)
                 missile.explode(cast)
                 cast.remove_actor("missiles2", missile)
-                self._is_game_over = True
+                health1.apply_damage(damage_points)
+                # if health1.get_health_points() <= 0:
+                #         self._is_game_over = True
                 self._set_winner(2)
 
         for missile in missiles1:
             if self._check_possible_collision(tank2, missile, constants.TANK_BUBBLE):
-                # tank2.apply_damage(points)
-                self._is_game_over = True
                 missile.explode(cast)
                 cast.remove_actor("missiles1", missile)
+                health2.apply_damage(damage_points)
+                # if health2.get_health_points() <= 0:
+                #         self._is_game_over = True
+
                 # Check if both players triggered collision within the exact same frame...
                 if self._winner == "":
                     self._set_winner(1)

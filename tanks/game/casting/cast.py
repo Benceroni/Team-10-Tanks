@@ -103,19 +103,19 @@ class Cast:
 
         elif choice == 1:
             # Screen borders... No wrapping.
-            x1 = 0
-            x2 = (constants.COLUMNS - 1) * constants.CELL_SIZE
-            y1 = 0
-            y2 = (constants.ROWS -1) * constants.CELL_SIZE
+            x1 = 20
+            x2 = (constants.COLUMNS - 2) * constants.CELL_SIZE
+            y1 = 20
+            y2 = (constants.ROWS -2) * constants.CELL_SIZE
 
-            for i in range(0, constants.COLUMNS):
+            for i in range(1, constants.COLUMNS-1):
                 x = constants.CELL_SIZE * i
                 item = Item(Point(x, y1), "O")
                 self.add_actor("items", item)
                 item = Item(Point(x, y2), "O")
                 self.add_actor("items", item)
 
-            for j in range(0, constants.ROWS):
+            for j in range(1, constants.ROWS-1):
                 y = constants.CELL_SIZE * j
                 item = Item(Point(x1, y), "O")
                 self.add_actor("items", item)

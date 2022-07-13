@@ -32,6 +32,7 @@ class DrawActorsAction(Action):
         banners = cast.get_actors("banners")
         missiles = cast.get_actors("missiles1")
         missiles.extend(cast.get_actors("missiles2"))
+        healths = cast.get_actors("healths")
 
         self._video_service.clear_buffer()
         
@@ -40,6 +41,9 @@ class DrawActorsAction(Action):
         
         for tank in tanks:
             self._video_service.draw_actor(tank)
+
+        for health in healths:
+            self._video_service.draw_actor(health)
 
         self._video_service.draw_actors(items)
 
