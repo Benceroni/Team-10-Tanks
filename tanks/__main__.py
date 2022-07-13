@@ -45,8 +45,6 @@ TANKS - Map Choice
         user_choice = 0   
     cast.set_stage(user_choice)
 
-    cast.set_stage(1)
-
     # start the game
     keyboard_service = KeyboardService()
     video_service = VideoService()
