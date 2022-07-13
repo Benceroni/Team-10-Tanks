@@ -195,8 +195,8 @@ class HandleCollisionsAction(Action):
                 missile.explode(cast)
                 cast.remove_actor("missiles2", missile)
                 if health1.get_health_points() <= 0:
-                        self._is_game_over = True
-                self._set_winner(2)
+                    self._is_game_over = True
+                    self._set_winner(2)
 
         for missile in missiles1:
             if self._check_possible_collision(tank2, missile, constants.TANK_BUBBLE):
@@ -204,7 +204,7 @@ class HandleCollisionsAction(Action):
                 missile.explode(cast)
                 cast.remove_actor("missiles1", missile)
                 if health2.get_health_points() <= 0:
-                        self._is_game_over = True
+                    self._is_game_over = True
 
                 # Check if both players triggered collision within the exact same frame...
                 if self._winner == "":
