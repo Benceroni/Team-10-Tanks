@@ -40,10 +40,10 @@ TANKS - Map Choice
 2. Symmetrically Staggered Vertical Walls
 3. Diagonal Walls
 """)
-    # user_choice = int(input("You choice: "))
-    # if user_choice < 0 or user_choice > 3:
-    #     user_choice = 0   
-    # cast.set_stage(user_choice)
+    user_choice = int(input("You choice: "))
+    if user_choice < 0 or user_choice > 3:
+        user_choice = 0   
+    cast.set_stage(user_choice)
 
     cast.set_stage(1)
 

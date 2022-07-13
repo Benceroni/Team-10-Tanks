@@ -20,12 +20,13 @@ class Health(Actor):
         """
         super().__init__()
         self._player_number = player_number
-        self._color = constants.PLAYER_COLORS[player_number]['ready']
+        self.set_color(constants.PLAYER_COLORS[player_number]['ready'])
         x = int(constants.CELL_SIZE * constants.HEALTH_POINT_POSITION[self._player_number-1].get_x())
         y = int(constants.CELL_SIZE * constants.HEALTH_POINT_POSITION[self._player_number-1].get_y())
-        self._position = Point(x, y)
+        updated_position = Point(x, y)
+        self.set_position(updated_position)
         self.health_points = 100
-        self._text = f"Health Points: {self.health_points}"
+        self.set_text(f"Health Points: {self.health_points}")
 
     def apply_damage(self, damage_points):
         """Subtracts damage_points from self.health_points.
@@ -34,6 +35,7 @@ class Health(Actor):
             damage_points (int): The amount of health points to subtract from self.health_points.
         """
         self.health_points -= damage_points
+        self.set_text(f"Health Points: {self.health_points}")
 
 
     def get_health_points(self):
