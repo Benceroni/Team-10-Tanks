@@ -205,12 +205,13 @@ class HandleCollisionsAction(Action):
                 cast.remove_actor("missiles1", missile)
                 if health2.get_health_points() <= 0:
                     self._is_game_over = True
-
-                # Check if both players triggered collision within the exact same frame...
-                if self._winner == "":
                     self._set_winner(1)
-                else:
-                    self._set_winner(0)
+
+                # # Check if both players triggered collision within the exact same frame...
+                # if self._winner == "":
+                #     self._set_winner(1)
+                # else:
+                #     self._set_winner(0)
 
           
     def _handle_game_over(self, cast):
