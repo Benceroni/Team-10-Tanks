@@ -101,6 +101,7 @@ class Tank(Actor):
             cast (Cast): A list of Actors in acting groups that we will add the missile to. 
             velocity (Point): The initial Vx, Vy velocity of the missile. 
         """
+
         if self._num_rounds > 0 and self._fire_delay == constants.TANK_REPEAT_RATE:
             velocity = self._facing.scale(constants.MISSILE_SPEED * constants.CELL_SIZE)
             missile = Missile(self._player_number, self._position, velocity, self._color)

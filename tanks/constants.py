@@ -139,7 +139,7 @@ TANK_AMMO_ROUNDS = 5
 TANK_REPEAT_RATE = 5
 
 # Number of seconds it takes to reload a new set of rounds.
-TANK_RELOAD_RATE = 3
+TANK_RELOAD_RATE = 2
 
 # The buffer measuremment applied to a tank (in pixels).
 TANK_BUFFER = -10
