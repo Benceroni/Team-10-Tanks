@@ -105,12 +105,12 @@ class Missile(Actor):
         Args:
             cast (Cast): The cast of actors within which the new missiles will be spawned.
         """
-        # if self._phase > 0:
-        #     for vector in constants.MISSILE_EXPLOSION_VELOCITIES:
-        #         self.set_velocity(Point(0,0))
-        #         shrapnel = Missile(self._player_num, self._position, vector, constants.YELLOW)
-        #         shrapnel.set_range(constants.MISSILE_BLAST_RANGE)
-        #         shrapnel.set_phase(self._phase - 1)
-        #         cast.add_actor(f"missiles{self._player_num}", shrapnel)
-        pass
+        if self._phase > 0:
+            for vector in constants.MISSILE_EXPLOSION_VELOCITIES:
+                self.set_velocity(Point(0,0))
+                shrapnel = Missile(self._player_num, self._position, vector, constants.YELLOW)
+                shrapnel.set_range(constants.MISSILE_BLAST_RANGE)
+                shrapnel.set_phase(self._phase - 1)
+                cast.add_actor(f"missiles{self._player_num}", shrapnel)
+        # pass
     ## For now all other methods inherited from Actor remain the same.   

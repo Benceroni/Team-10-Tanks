@@ -187,7 +187,7 @@ class HandleCollisionsAction(Action):
         health1 = healths[0]
         health2 = healths[1]
 
-        damage_points = 10
+        damage_points = 1
 
         for missile in missiles2:
             if self._check_possible_collision(tank1, missile, constants.TANK_BUBBLE):
