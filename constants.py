@@ -64,6 +64,11 @@ WALL_BUBBLE = CELL_SIZE + WALL_BUFFER
 # Wall color(s).
 WALL_COLOR = GREY
 
+#Wall Image(s).
+WALL_IMAGES = {
+    "square": ("./assets/wall_segment_01.png")
+}
+
 
 
 ########## MISSILE DEFINITIONS ##########

@@ -1,6 +1,7 @@
 import constants
 from game.shared.color import Color
 from game.shared.point import Point
+from game.shared.image import Image
 
 
 class Actor:
@@ -24,6 +25,7 @@ class Actor:
         self._color = Color(255, 255, 255)
         self._position = Point(0, 0)
         self._velocity = Point(0, 0)
+        self._image = Image("")
 
     def get_color(self):
         """Gets the actor's color as a tuple of three ints (r, g, b).
@@ -64,6 +66,14 @@ class Actor:
             Point: The actor's speed and direction.
         """
         return self._velocity
+
+    def get_image(self):
+        """Gets the actor's image.
+        
+        Returns:
+            Image: The actor's image.
+        """
+        return self._image
     
     def move_next(self):
         """Moves the actor to its next position according to its velocity. Will wrap the position 
@@ -116,3 +126,11 @@ class Actor:
             velocity (Point): The given velocity.
         """
         self._velocity = velocity
+
+    def set_image(self, image):
+        """Updates the image to the given one.
+        
+        Args:
+            image (Image): The given image.
+        """
+        self._image = image
