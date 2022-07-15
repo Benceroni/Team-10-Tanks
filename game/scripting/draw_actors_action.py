@@ -26,10 +26,8 @@ class DrawActorsAction(Action):
             cast (Cast): The cast of Actors in the game.
             script (Script): The script of Actions in the game.
         """
-        score = cast.get_first_actor("scores")
         tanks = cast.get_actors("tanks")
         items = cast.get_actors("items")
-        banners = cast.get_actors("banners")
         missiles = cast.get_actors("missiles1")
         missiles.extend(cast.get_actors("missiles2"))
         healths = cast.get_actors("healths")
@@ -47,7 +45,4 @@ class DrawActorsAction(Action):
 
         self._video_service.draw_actors(items)
 
-        # Banners are last to have topmost priority
-        # over all other items.
-        self._video_service.draw_banners(banners, True)
         self._video_service.flush_buffer()

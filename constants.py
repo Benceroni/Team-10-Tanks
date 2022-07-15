@@ -27,7 +27,7 @@ DK_GREY =       Color(80, 80, 80)
 ########## SCREEN / BOARD / VIDEO DEFINITIONS ##########
 #
 # Size of a cell in pixels.
-CELL_SIZE = 20
+CELL_SIZE = 16
 FONT_SIZE = CELL_SIZE
 
 # Number of cells across.
