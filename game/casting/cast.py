@@ -1,5 +1,5 @@
 import constants
-from game.casting.item import Item
+from game.casting.wall import Wall
 from game.shared.point import Point
 
 class Cast:
@@ -110,17 +110,17 @@ class Cast:
 
             for i in range(1, constants.COLUMNS-1):
                 x = constants.CELL_SIZE * i
-                item = Item(Point(x, y1), "O")
-                self.add_actor("items", item)
-                item = Item(Point(x, y2), "O")
-                self.add_actor("items", item)
+                wall = Wall(Point(x, y1), "O")
+                self.add_actor("walls", wall)
+                wall = Wall(Point(x, y2), "O")
+                self.add_actor("walls", wall)
 
             for j in range(1, constants.ROWS-1):
                 y = constants.CELL_SIZE * j
-                item = Item(Point(x1, y), "O")
-                self.add_actor("items", item)
-                item = Item(Point(x2, y), "O")
-                self.add_actor("items", item)
+                wall = Wall(Point(x1, y), "O")
+                self.add_actor("walls", wall)
+                wall = Wall(Point(x2, y), "O")
+                self.add_actor("walls", wall)
 
         elif choice == 2:
             # Symetrically staggered vertical walls
@@ -129,38 +129,38 @@ class Cast:
             for i in range(start_y, start_y + 10):
                 x = start_x * constants.CELL_SIZE
                 y = i * constants.CELL_SIZE
-                item = Item(Point(x, y), "O")
-                self.add_actor("items", item)
+                wall = Wall(Point(x, y), "O")
+                self.add_actor("walls", wall)
 
             start_y = 25
             for i in range(start_y, start_y + 10):
                 x = start_x * constants.CELL_SIZE
                 y = i * constants.CELL_SIZE
-                item = Item(Point(x, y), "O")
-                self.add_actor("items", item)
+                wall = Wall(Point(x, y), "O")
+                self.add_actor("walls", wall)
 
             start_x = 30
             start_y = 15
             for i in range(start_y, start_y + 10):
                 x = start_x * constants.CELL_SIZE
                 y = i * constants.CELL_SIZE
-                item = Item(Point(x, y), "O")
-                self.add_actor("items", item)
+                wall = Wall(Point(x, y), "O")
+                self.add_actor("walls", wall)
 
             start_x = 50
             start_y = 5
             for i in range(start_y, start_y + 10):
                 x = start_x * constants.CELL_SIZE
                 y = i * constants.CELL_SIZE
-                item = Item(Point(x, y), "O")
-                self.add_actor("items", item)
+                wall = Wall(Point(x, y), "O")
+                self.add_actor("walls", wall)
 
             start_y = 25
             for i in range(start_y, start_y + 10):
                 x = start_x * constants.CELL_SIZE
                 y = i * constants.CELL_SIZE
-                item = Item(Point(x, y), "O")
-                self.add_actor("items", item)
+                wall = Wall(Point(x, y), "O")
+                self.add_actor("walls", wall)
 
         elif choice == 3:
             # Diagonal Walls
@@ -169,32 +169,32 @@ class Cast:
             for i in range(10):
                 x = (start_x + i) * constants.CELL_SIZE
                 y = (start_y - i) * constants.CELL_SIZE
-                item = Item(Point(x, y), "/")
-                self.add_actor("items", item)
+                wall = Wall(Point(x, y), "/")
+                self.add_actor("walls", wall)
 
             start_x = 5
             start_y = 26
             for i in range(10):
                 x = (start_x + i) * constants.CELL_SIZE
                 y = (start_y + i) * constants.CELL_SIZE
-                item = Item(Point(x, y), "\\")
-                self.add_actor("items", item)
+                wall = Wall(Point(x, y), "\\")
+                self.add_actor("walls", wall)
 
             start_x = constants.COLUMNS - 5
             start_y = 15
             for i in range(10):
                 x = (start_x - i) * constants.CELL_SIZE
                 y = (start_y - i) * constants.CELL_SIZE
-                item = Item(Point(x, y), "\\")
-                self.add_actor("items", item)
+                wall = Wall(Point(x, y), "\\")
+                self.add_actor("walls", wall)
 
             start_x = constants.COLUMNS - 5
             start_y = 26
             for i in range(10):
                 x = (start_x - i) * constants.CELL_SIZE
                 y = (start_y + i) * constants.CELL_SIZE
-                item = Item(Point(x, y), "/")
-                self.add_actor("items", item)
+                wall = Wall(Point(x, y), "/")
+                self.add_actor("walls", wall)
 
             start_x1 = 30-5
             start_y1 = 20-5
@@ -205,7 +205,7 @@ class Cast:
                 y1 = (start_y1 + i) * constants.CELL_SIZE
                 x2 = (start_x2 + i) * constants.CELL_SIZE
                 y2 = (start_y2 - i) * constants.CELL_SIZE
-                item = Item(Point(x1, y1), "\\")
-                self.add_actor("items", item)
-                item = Item(Point(x2, y2), "/")
-                self.add_actor("items", item)
+                wall = Wall(Point(x1, y1), "\\")
+                self.add_actor("walls", wall)
+                wall = Wall(Point(x2, y2), "/")
+                self.add_actor("walls", wall)

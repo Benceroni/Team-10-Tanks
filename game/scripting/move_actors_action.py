@@ -20,7 +20,6 @@ class MoveActorsAction(Action):
         collision_checker = HandleCollisionsAction()
 
         tanks = cast.get_actors("tanks")
-        walls = cast.get_actors("items")
         missiles = cast.get_actors("missiles1")
         missiles.extend(cast.get_actors("missiles2"))
         healths = cast.get_actors("healths")

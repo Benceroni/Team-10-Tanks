@@ -3,11 +3,11 @@ from game.casting.actor import Actor
 from game.shared.point import Point
 
 
-class Item(Actor):
+class Wall(Actor):
     """
-    A item that the tanks can potentially pick up.
+    A wall that serves as an obstacle to tanks and missiles.
     
-    The responsibility of Item is to select a random position and points that it's worth.
+    The responsibility of Wall is to serve as an obstacle.
 
     Attributes:
         _points (int): The number of points the item is worth.
@@ -21,17 +21,6 @@ class Item(Actor):
         self.set_position(position)
         self.set_text(text)
         self.set_color(color)
-        # self.reset()
-        
-    def reset(self):
-        """Selects a random position and points that the item is worth."""
-        # self._points = random.randint(1, 8)
-        # x = random.randint(1, constants.COLUMNS - 1)
-        # y = random.randint(1, constants.ROWS - 1)
-        # position = Point(x, y)
-        # position = position.scale(constants.CELL_SIZE)
-        # self.set_position(position)
-        pass
         
     def get_points(self):
         """Gets the points the item is worth.

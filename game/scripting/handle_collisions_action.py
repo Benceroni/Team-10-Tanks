@@ -1,15 +1,13 @@
 import constants
 from game.casting.banner import Banner
 from game.scripting.action import Action
-# from game.casting.health import Health
-
 
 class HandleCollisionsAction(Action):
     """
     An update action that handles interactions between the actors.
     
     The responsibility of HandleCollisionsAction is to handle the situation when the tank collides
-    with the items, or the tank collides with its segments, or the game is over.
+    with the walls, tanks or missiles, also when is game over.
 
     Attributes:
         _is_game_over (boolean): Whether or not the game is over.
@@ -30,29 +28,9 @@ class HandleCollisionsAction(Action):
             script (Script): The script of Actions in the game.
         """
         if not self._is_game_over:
-            # self._handle_item_collision(cast)
             self._handle_missile_tank_collision(cast)
             self._handle_missile_wall_collision(cast)
             self._handle_game_over(cast)
-
-
-    def _handle_item_collision(self, cast):
-        # """Unused right now, but could allow for possibility of picking up bonuses,
-        # power-ups, other obstacles, etc...?
-        
-        # Args:
-        #     cast (Cast): The cast of Actors in the game.
-        # """
-        # items = cast.get_actors("items")
-        # tank1 = cast.get_actor("tanks", 0)
-        # tank2 = cast.get_actor("tanks", 1)
-        
-        # for item in items:
-        #     if tank1.get_position().equals(item.get_position()):
-        #         print("Player 1 is touching an item!")
-        #     if tank2.get_position().equals(item.get_position()):
-        #         print("Player 2 is touching an item!")
-        pass
 
     def _check_collision(self, thing_1, thing_2):
         """Check if two things has collided either one segment or another.
@@ -123,7 +101,7 @@ class HandleCollisionsAction(Action):
 
         Returns: (boolean) True if collision would occur.
         """
-        walls = cast.get_actors("items")
+        walls = cast.get_actors("walls")
 
         #Checks the collisions
         for wall in walls:
@@ -155,7 +133,7 @@ class HandleCollisionsAction(Action):
         Args:
             cast (Cast): The cast of Actors in the game.
         """
-        walls = cast.get_actors("items")
+        walls = cast.get_actors("walls")
         missiles1 = cast.get_actors("missiles1")
         missiles2 = cast.get_actors("missiles2")
 
@@ -215,7 +193,7 @@ class HandleCollisionsAction(Action):
 
           
     def _handle_game_over(self, cast):
-        """Shows the 'game over' message and turns the tank and any items 
+        """Shows the 'game over' message 
         white if the game is over.
         
         Args:

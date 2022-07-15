@@ -27,7 +27,7 @@ class DrawActorsAction(Action):
             script (Script): The script of Actions in the game.
         """
         tanks = cast.get_actors("tanks")
-        items = cast.get_actors("items")
+        walls = cast.get_actors("walls")
         missiles = cast.get_actors("missiles1")
         missiles.extend(cast.get_actors("missiles2"))
         healths = cast.get_actors("healths")
@@ -43,6 +43,6 @@ class DrawActorsAction(Action):
         for health in healths:
             self._video_service.draw_actor(health)
 
-        self._video_service.draw_actors(items)
+        self._video_service.draw_actors(walls)
 
         self._video_service.flush_buffer()
