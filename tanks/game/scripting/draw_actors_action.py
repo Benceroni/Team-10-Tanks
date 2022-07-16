@@ -49,4 +49,9 @@ class DrawActorsAction(Action):
         for wall in walls:
             self._video_service.draw_image(wall.get_image(), wall.get_position())
 
+
+        # Banners are last to have topmost priority
+        # over all other items.
+        self._video_service.draw_banners(banners, True)
+
         self._video_service.flush_buffer()
