@@ -4,7 +4,7 @@ _Was all the one that fell._
 _Was it Goliath was too large,_  
 _Or only I too small?_  
 
-~ Emily Dickenson "The Duel" 
+~ From "The Duel" by Emily Dickenson 
 
 ## Overview
 Tanks is a game where two players attempt to annihilate each other by shooting exploding shells.
@@ -26,12 +26,12 @@ Players can control their tanks with the following keyboard commands:
 Some maps have open borders. Going off the edge of the screen will wrap around to the opposite side.
 
 ### Health
-Each player has 100 health points. When a player runs out of health points, he or she loses the game.
+Each player has 100 health points. This status is indicated at the bottom of the screen. When a player runs out of health points, their tank goes ***KA-BLOOEY!*** and he or she loses the game.
 
 ### Shooting
-Each player's tank has a cannon that will shoot five rounds at a time. After five rounds have been fired, the tank will dim and the player is unable to shoot while the crew reloads the cannon. The reload process takes only a couple of seconds. The tank is ready to shoot when it lights up again.
+Each player's tank has a cannon that will shoot five rounds at a time. After five rounds have been fired, the tank will need to reload and the player is unable to shoot. This is indicated when the tank goes dark. The reload process takes only a couple of seconds. The tank is ready to shoot when it lights up again.
 
-The cannon can shoot a fairly decent range. Rounds will explode on contact with the other tank, other barriers, or the ground when they have reached their range limit. Explosions will hurt, even if it is not a direct hit. 
+The cannon can shoot a fairly decent range. Rounds will explode on contact with the other tank, any barriers, or the ground when they have reached their range limit. Explosions will hurt, even if it is not a direct hit. 
 
 ## Getting Started
 Make sure you have Python 3.8.0 or newer installed and running on your machine. Open a terminal and browse to the project's root folder. Start the program by running the following command.
@@ -47,6 +47,7 @@ The project files and folders are organized as follows:
 ```
 root                    (project root folder)
 +-- tanks               (source code for game)
+  +-- assets            (image assets for the game)
   +-- game              (specific classes)
     +-- casting         (classes who are used to make the interactable objects in the game)
     +-- directing       (classes who direct the sequence of actions in the play)
@@ -67,3 +68,5 @@ Python 3.8.0 or greater.
 - Julian Hernandez (hernandezjuliang44@gmail.com)
 - Mike Lewis (wyoming.c64@gmail.com)
 - Jaden McCarrey (jadenmccarrey@gmail.com)
+
+Pixel art by Julian Hernandez.

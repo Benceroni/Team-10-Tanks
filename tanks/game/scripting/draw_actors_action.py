@@ -1,3 +1,4 @@
+import pyray
 import constants
 from game.scripting.action import Action
 from game.shared.image import Image
@@ -42,10 +43,11 @@ class DrawActorsAction(Action):
             self._video_service.draw_missile(missile.get_image(), missile.get_position(), missile.get_text())
         
         for tank in tanks:
-            self._video_service.draw_image(tank.get_image(), tank.get_image().get_position())
+            if tank._is_alive:
+                self._video_service.draw_image(tank.get_image(), tank.get_image().get_position())
 
         for health in healths:
-            self._video_service.draw_actor(health)
+            self._video_service.draw_status(health)
 
         for wall in walls:
             self._video_service.draw_image(wall.get_image(), wall.get_position())

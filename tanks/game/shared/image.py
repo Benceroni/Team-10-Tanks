@@ -1,3 +1,4 @@
+import pyray
 from constants import *
 from game.shared.point import Point
 
@@ -10,6 +11,7 @@ class Image:
         self._scale = scale
         self._rotation = rotation
         self._position = Point(0, 0)
+        self._tint = pyray.WHITE
         
     def get_filename(self):
         """Gets the name of the image file.
@@ -98,3 +100,20 @@ class Image:
         #Up-Left
         elif self._rotation == 315:
             self._position = self._position.add(Point(-CELL_SIZE * self._scale * 0.25, CELL_SIZE * self._scale * 0.4))
+
+    
+    
+    def set_tint(self, color):
+            """Sets the tinting color for the image when drawn.
+            
+            Args:
+                color (Color): A valid color instance.
+            """
+            self._tint = color
+
+    
+    def get_tint(self):
+            """Returns the current tint color for the image.
+            """
+            return self._tint
+            

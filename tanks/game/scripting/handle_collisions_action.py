@@ -173,6 +173,7 @@ class HandleCollisionsAction(Action):
                 missile.explode(cast)
                 cast.remove_actor("missiles2", missile)
                 if health1.get_health_points() <= 0:
+                    tank1.explode(cast)
                     self._is_game_over = True
                     self._set_winner(2)
 
@@ -182,6 +183,7 @@ class HandleCollisionsAction(Action):
                 missile.explode(cast)
                 cast.remove_actor("missiles1", missile)
                 if health2.get_health_points() <= 0:
+                    tank2.explode(cast)
                     self._is_game_over = True
                     self._set_winner(1)
 

@@ -29,6 +29,7 @@ class Tank(Actor):
         """
         super().__init__()
         self._player_number = player_number
+        self._is_alive = True
         self._color = constants.PLAYER_COLORS[player_number]['ready']
         self._text = constants.TANK_SHAPE
         self.set_image(Image(constants.TANK_IMAGES[player_number]["animation1"]))
@@ -115,10 +116,12 @@ class Tank(Actor):
         """
         if self._num_rounds < 1:
             self.set_color(constants.PLAYER_COLORS[self._player_number]['wait'])
+            self.get_image().set_tint(constants.PLAYER_COLORS[self._player_number]['wait'].to_tuple())
             self._reload_time -= 1
             if self._reload_time == 0:
                 self._reload_gun()
                 self.set_color(constants.PLAYER_COLORS[self._player_number]['ready'])
+                self.get_image().set_tint(constants.WHITE.to_tuple())
 
 
     def move_next(self):
@@ -141,7 +144,7 @@ class Tank(Actor):
             cast (Cast): A list of Actors in acting groups that we will add the missile to. 
             velocity (Point): The initial Vx, Vy velocity of the missile. 
         """
-        if self._num_rounds > 0 and self._fire_delay == constants.TANK_REPEAT_RATE:
+        if self._is_alive and self._num_rounds > 0 and self._fire_delay == constants.TANK_REPEAT_RATE:
             velocity = self._facing.scale(constants.MISSILE_SPEED * constants.CELL_SIZE)
             missile = Missile(self._player_number, self._position, velocity, self._color)
             cast.add_actor(f"missiles{self._player_number}", missile)
@@ -149,7 +152,20 @@ class Tank(Actor):
             self._fire_delay = 0
 
 
-
+        # Tanks explode too.
+    def explode(self, cast):
+        """Explodes this tank.
+        Args:
+            cast (Cast): The cast of actors within which the new missiles will be spawned.
+        """
+        
+        for vector in constants.MISSILE_EXPLOSION_VELOCITIES:
+            self.set_velocity(Point(0,0))
+            shrapnel = Missile(self._player_number, self._position, vector, constants.YELLOW)
+            shrapnel.set_range(constants.MISSILE_BLAST_RANGE * 2)
+            shrapnel.set_phase(0)
+            self._is_alive = False
+            cast.add_actor(f"missiles{self._player_number}", shrapnel)
 
 
 

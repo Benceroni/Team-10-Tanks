@@ -20,6 +20,7 @@ class Banner(Actor):
         self._bkg_color = bkg_color
         self._padding = padding
         self._font_size = font_size
+        
         self.set_text(text)
         
 
@@ -89,8 +90,8 @@ class Banner(Actor):
         """Will use the MAX_X and MAX_Y constants to position this banner
         in the middle of the screen.
         """
-        x = int(MAX_X / 2)
-        y = int((MAX_Y / 2) - (self._height / 2))
+        x = int(GAME_MAX_X / 2)
+        y = int((GAME_MAX_Y / 2) - (self._height / 2))
         self.set_position(Point(x, y))
 
 

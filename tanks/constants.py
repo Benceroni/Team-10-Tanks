@@ -38,9 +38,15 @@ COLUMNS = 60
 # number of cells tall.
 ROWS = 40
 
+# Status row height.
+STATUS_ROW_HEIGHT = 28
+
 # Overall size of window in pixels (calculated).
-MAX_X = CELL_SIZE * COLUMNS
-MAX_Y = CELL_SIZE * ROWS
+GAME_MAX_X = CELL_SIZE * COLUMNS
+GAME_MAX_Y = (CELL_SIZE * ROWS) 
+
+WINDOW_MAX_X = GAME_MAX_X
+WINDOW_MAX_Y = GAME_MAX_Y + STATUS_ROW_HEIGHT
 
 # Game speed / redraw frame rate. (Target, not guaranteed.) 
 FRAME_RATE = 30 
@@ -60,8 +66,8 @@ BACKGROUND = {
 
 # Health point positions.
 HEALTH_POINT_POSITION = [
-    Point(1, 0),
-    Point(50, 0)
+    Point(1, ROWS ),
+    Point(46, ROWS )
 ]
 
 

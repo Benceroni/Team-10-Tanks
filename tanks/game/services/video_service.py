@@ -3,6 +3,7 @@ import constants
 import pathlib
 import os
 from game.shared.point import Point
+from game.casting.banner import Banner
 
 class VideoService:
     """Outputs the game state. The responsibility of the class of objects is to draw the game state 
@@ -41,7 +42,8 @@ class VideoService:
         raylib_position = pyray.Vector2(x, y)
         scale = image.get_scale()
         rotation = image.get_rotation()
-        pyray.draw_texture_ex(texture, raylib_position, rotation, scale, pyray.WHITE)
+        tint = image.get_tint()
+        pyray.draw_texture_ex(texture, raylib_position, rotation, scale, tint)
 
     def draw_actor(self, actor, centered=False):
         """Draws the given actor's text on the screen.
@@ -94,16 +96,16 @@ class VideoService:
         Args:
             title (string): The title of the window.
         """
-        pyray.init_window(constants.MAX_X, constants.MAX_Y, constants.CAPTION)
+        pyray.init_window(constants.WINDOW_MAX_X, constants.WINDOW_MAX_Y, constants.CAPTION)
         pyray.set_target_fps(constants.FRAME_RATE)
 
     def _draw_grid(self):
         """Draws a grid on the screen."""
-        for y in range(0, constants.MAX_Y, constants.CELL_SIZE):
-            pyray.draw_line(0, y, constants.MAX_X, y, pyray.GRAY)
+        for y in range(0, constants.GAME_MAX_Y, constants.CELL_SIZE):
+            pyray.draw_line(0, y, constants.GAME_MAX_X, y, pyray.GRAY)
             
-        for x in range(0, constants.MAX_X, constants.CELL_SIZE):
-            pyray.draw_line(x, 0, x, constants.MAX_Y, pyray.GRAY)
+        for x in range(0, constants.GAME_MAX_X, constants.CELL_SIZE):
+            pyray.draw_line(x, 0, x, constants.GAME_MAX_Y, pyray.GRAY)
 
 
     def unload_images(self):
@@ -142,6 +144,38 @@ class VideoService:
     def _get_x_offset(self, text, font_size):
         width = pyray.measure_text(text, font_size)
         return int(width / 2)
+
+
+    def draw_status(self, status):
+        """Utilizes a banner object to draw and update the health status on the screen.
+        
+        Args:
+            health (Health): An instance of Health.
+        """
+        player_num = status.get_player_num()
+        bk_color = constants.PLAYER_COLORS[player_num]['wait']
+        text = status.get_text()
+        status_banner = Banner(text, bk_color, 20, 1)
+        text_color = constants.RED
+        if status.get_health_points() > 60:
+            text_color = constants.GREEN
+        elif status.get_health_points() > 40:
+            text_color = constants.YELLOW
+        elif status.get_health_points() > 20:
+            text_color = constants.ORANGE
+        
+        status_banner.set_color(text_color)
+        status_banner.set_position(status.get_position())
+        
+        self.draw_banner(status_banner, False)
+
+        
+
+        
+
+        
+        
+
 
 
     def draw_banner(self, banner, centered=False):

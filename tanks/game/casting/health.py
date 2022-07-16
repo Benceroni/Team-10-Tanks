@@ -26,7 +26,7 @@ class Health(Actor):
         updated_position = Point(x, y)
         self.set_position(updated_position)
         self.health_points = 100
-        self.set_text(f"Health Points: {self.health_points}")
+        self.set_text(f"  Health Points: {self.health_points}  ")
 
     def apply_damage(self, damage_points):
         """Subtracts damage_points from self.health_points.
@@ -35,7 +35,7 @@ class Health(Actor):
             damage_points (int): The amount of health points to subtract from self.health_points.
         """
         self.health_points -= damage_points
-        self.set_text(f"Health Points: {self.health_points}")
+        self.set_text(f"  Health Points: {self.health_points}  ")
 
 
     def get_health_points(self):
@@ -45,6 +45,20 @@ class Health(Actor):
             Int: The actor's current number of health points.
         """
         return self.health_points
+
+
+    def get_player_num(self):
+        """Returns the value of the player_number attribute.
+        """
+        return self._player_number
+
+
+    # Shouldn't move next... Should be static.
+
+    def move_next(self):
+        """Do nothing.
+        """
+        pass
 
     # def get_text_length(self):
     #     """Determines how long the instance of Health is.
