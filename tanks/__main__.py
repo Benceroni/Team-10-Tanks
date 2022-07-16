@@ -16,6 +16,7 @@ from game.services.keyboard_service import KeyboardService
 from game.services.video_service import VideoService
 from game.shared.color import Color
 from game.shared.point import Point
+from game.casting.banner import Banner
 
 
 def main():
@@ -29,7 +30,6 @@ def main():
     cast.add_actor("scores", Score())
     cast.add_actor("healths", Health(1))
     cast.add_actor("healths", Health(2))
-    
     # TODO: set_stage() needs to be moved to a Level class or Stage class
     # Prompt for a stage 
     print("""
@@ -60,6 +60,11 @@ TANKS - Background choice
     # start the game
     keyboard_service = KeyboardService()
     video_service = VideoService()
+
+    title_banner = Banner("T", Color(0,0,0), 20, 4)
+    title_banner.set_position(Point(400, 640))
+    title_banner.set_text("Tanks by Team10")
+    cast.add_actor("banners", title_banner)
 
     script = Script()
     script.add_action("input", ControlActorsAction(keyboard_service))

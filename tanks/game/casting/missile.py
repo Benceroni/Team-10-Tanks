@@ -3,6 +3,7 @@ import random
 from game.casting.actor import Actor
 from game.shared.point import Point
 from game.shared.image import Image
+from game.shared.color import Color
 
 
 class Missile(Actor):
@@ -75,7 +76,7 @@ class Missile(Actor):
         self._range = range_value
 
 
-    def _set_random_text(self):
+    def _set_random_appearance(self):
         """Changes the image of the shrapnel to a random character from a
         predefined list.
 
@@ -94,8 +95,7 @@ class Missile(Actor):
         super().move_next()
         self._range -= 1
         if self._phase < 1:
-            self._set_random_text()
-        
+            self._set_random_appearance()
 
 
     def explode(self, cast):
@@ -110,7 +110,7 @@ class Missile(Actor):
         if self._phase > 0:
             for vector in constants.MISSILE_EXPLOSION_VELOCITIES:
                 self.set_velocity(Point(0,0))
-                shrapnel = Missile(self._player_num, self._position, vector, constants.YELLOW)
+                shrapnel = Missile(self._player_num, self._position, vector, constants.PLAYER_COLORS[self._player_num]["ready"])
                 shrapnel.set_range(constants.MISSILE_BLAST_RANGE)
                 shrapnel.set_phase(self._phase - 1)
                 cast.add_actor(f"missiles{self._player_num}", shrapnel)

@@ -102,6 +102,5 @@ class Banner(Actor):
         """
         lines = self._text.count("\n") + 1
         self._height = (self._font_size + 5) * lines + ( self._padding * 2 )
-        self._width = pyray.measure_text(self._text, self._font_size) + (self._padding * 2)
-    
 
+        self._width = pyray.measure_text(self.get_text(), self._font_size) + (self._padding * 2)

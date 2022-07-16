@@ -191,15 +191,7 @@ class VideoService:
         
         self.draw_banner(status_banner, False)
 
-        
-
-        
-
-        
-        
-
-
-
+      
     def draw_banner(self, banner, centered=False):
         """Draws the given banner's text on the screen with the appropriate background.
 
