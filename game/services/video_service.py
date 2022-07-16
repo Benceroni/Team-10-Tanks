@@ -1,6 +1,8 @@
 import pyray
 import constants
-
+import pathlib
+import os
+from game.shared.point import Point
 
 class VideoService:
     """Outputs the game state. The responsibility of the class of objects is to draw the game state 
@@ -14,20 +16,33 @@ class VideoService:
             debug (bool): whether or not to draw in debug mode.
         """
         self._debug = debug
+        self._textures = {}
 
     def close_window(self):
         """Closes the window and releases all computing resources."""
         pyray.close_window()
 
-    def clear_buffer(self):
+    def clear_buffer(self, image):
         """Clears the buffer in preparation for the next rendering. This method should be called at
         the beginning of the game's output phase.
         """
         pyray.begin_drawing()
         pyray.clear_background(pyray.BLACK)
+        self.draw_background(image)
         if self._debug == True:
             self._draw_grid()
-    
+
+    def draw_image(self, image, position):
+        filepath = image.get_filename()
+        filepath = str(pathlib.Path(filepath))
+        texture = self._textures[filepath]
+        x = position.get_x()
+        y = position.get_y()
+        raylib_position = pyray.Vector2(x, y)
+        scale = image.get_scale()
+        rotation = image.get_rotation()
+        pyray.draw_texture_ex(texture, raylib_position, rotation, scale, pyray.WHITE)
+
     def draw_actor(self, actor, centered=False):
         """Draws the given actor's text on the screen.
 
@@ -55,45 +70,6 @@ class VideoService:
         """ 
         for actor in actors:
             self.draw_actor(actor, centered)
-
-    def draw_banner(self, banner, centered=False):
-        """Draws the given banner's text on the screen with the appropriate background.
-
-        Args:
-            actor (Actor): The actor to draw.
-        """ 
-        text = banner.get_text()
-        pad = banner.get_padding()
-        x = banner.get_position().get_x()
-        y = banner.get_position().get_y()
-        w = banner.get_width() 
-        h = banner.get_height()
-        
-        if centered:
-            # width = pyray.measure_text(text, font_size)
-            offset = int(w / 2)
-            x -= offset
-
-        text_x = x + pad
-        text_y = y + pad
-        bkg = banner.get_bkg_color().to_tuple()
-        font_size = banner.get_font_size()
-        color = banner.get_color().to_tuple()
-
-        
-            
-        pyray.draw_rectangle(x, y, w, h, bkg)
-        pyray.draw_text(text, text_x, text_y, font_size, color)
-
-
-    def draw_banners(self, banners, centered=False):
-        """Draws the text for the given list of actors on the screen.
-
-        Args:
-            actors (list): A list of actors to draw.
-        """ 
-        for banner in banners:
-            self.draw_banner(banner, centered)
     
     def flush_buffer(self):
         """Copies the buffer contents to the screen. This method should be called at the end of
@@ -125,7 +101,36 @@ class VideoService:
             
         for x in range(0, constants.MAX_X, constants.CELL_SIZE):
             pyray.draw_line(x, 0, x, constants.MAX_Y, pyray.GRAY)
-    
+
+    def draw_background(self, image):
+        """Draws the background on the screen"""
+        image = image
+        for y in range(0, constants.MAX_Y, constants.CELL_SIZE):
+            for x in range(0, constants.MAX_X, constants.CELL_SIZE):
+                self.draw_image(image, Point(x, y))
+
+    def unload_images(self):
+        for texture in self._textures.values():
+            pyray.unload_texture(texture)
+        self._textures.clear()
+
+    def load_images(self, directory):
+        filepaths = self._get_filepaths(directory, [".png", ".gif", ".jpg", ".jpeg", ".bmp"])
+        for filepath in filepaths:
+            if filepath not in self._textures.keys():
+                texture = pyray.load_texture(filepath)
+                self._textures[filepath] = texture
+
+    def _get_filepaths(self, directory, filter):
+        filepaths = []
+        for file in os.listdir(directory):
+            filename = os.path.join(directory, file)
+            extension = pathlib.Path(filename).suffix.lower()
+            if extension in filter:
+                filename = str(pathlib.Path(filename))
+                filepaths.append(filename)
+        return filepaths
+
     def _get_x_offset(self, text, font_size):
         width = pyray.measure_text(text, font_size)
         return int(width / 2)

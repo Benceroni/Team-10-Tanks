@@ -12,12 +12,13 @@ class Wall(Actor):
     Attributes:
         _points (int): The number of points the item is worth.
     """
-    def __init__(self, position = False, text = "O", color = constants.WALL_COLOR):
+    def __init__(self, image, position = False, text = "O", color = constants.WALL_COLOR):
         "Constructs a new Item."
         super().__init__()
         self._points = 0
         if not position:
             position = Point(0,0)
+        self.set_image(image)
         self.set_position(position)
         self.set_text(text)
         self.set_color(color)

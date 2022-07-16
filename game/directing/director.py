@@ -1,3 +1,4 @@
+import constants
 class Director:
     """A person who directs the game. 
     
@@ -23,6 +24,7 @@ class Director:
             script (Script): The script of actions.
         """
         self._video_service.open_window()
+        self._video_service.load_images(constants.DIRECTORY)
         while self._video_service.is_window_open():
             self._execute_actions("input", cast, script)
             self._execute_actions("update", cast, script)

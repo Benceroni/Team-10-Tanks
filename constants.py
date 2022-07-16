@@ -1,3 +1,4 @@
+import os
 from game.shared.color import Color
 from game.shared.point import Point
 
@@ -46,6 +47,11 @@ FRAME_RATE = 30
 # Window title
 CAPTION = "Tanks"
 
+#Directory
+ABSOLUTE_PATH = os.path.dirname(__file__)
+DIRECTORY = os.path.join(ABSOLUTE_PATH, "assets")
+BACKGROUND = os.path.join(ABSOLUTE_PATH, "assets/sand.png")
+
 # Health point positions.
 HEALTH_POINT_POSITION = [
     Point(1, 0),
@@ -66,7 +72,7 @@ WALL_COLOR = GREY
 
 #Wall Image(s).
 WALL_IMAGES = {
-    "square": ("./assets/wall_segment_01.png")
+    "square": (os.path.join(ABSOLUTE_PATH, "assets/wall_segment_01.png"))
 }
 
 
@@ -157,7 +163,23 @@ TANK_BUFFER = -10
 # The overall bubble boundary around a tank (in pixels).
 TANK_BUBBLE = CELL_SIZE + TANK_BUFFER
 
+# Tank images
 
+TANK_IMAGES = [
+    {
+        "animation1": "",
+        "animation2": ""
+    },
+    {
+        "animation1": (os.path.join(ABSOLUTE_PATH, "assets/blue_tank_walk_01.png")),
+        "animation2": (os.path.join(ABSOLUTE_PATH, "assets/blue_tank_walk_02.png"))
+    },
+
+    {
+        "animation1": (os.path.join(ABSOLUTE_PATH, "assets/green_tank_walk_01.png")),
+        "animation2": (os.path.join(ABSOLUTE_PATH, "assets/green_tank_walk_02.png"))
+    }
+]
 
 ########## PLAYER DEFINITIONS ##########
 #
@@ -182,8 +204,8 @@ PLAYER_COLORS = [
         'winner': DK_BLUE,
     },
     {
-        'wait': DK_ORANGE,
-        'ready': ORANGE,
-        'winner': DK_ORANGE,
+        'wait': DK_GREEN,
+        'ready': GREEN,
+        'winner': DK_GREEN,
     }
 ]

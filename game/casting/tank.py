@@ -2,6 +2,7 @@ import constants
 from game.casting.missile import Missile
 from game.casting.actor import Actor
 from game.shared.point import Point
+from game.shared.image import Image
 
 
 class Tank(Actor):
@@ -30,13 +31,13 @@ class Tank(Actor):
         self._player_number = player_number
         self._color = constants.PLAYER_COLORS[player_number]['ready']
         self._text = constants.TANK_SHAPE
+        self.set_image(Image(constants.TANK_IMAGES[player_number]["animation1"]))
         x = int(constants.CELL_SIZE * constants.PLAYER_START[self._player_number].get_x())
         y = int(constants.CELL_SIZE * constants.PLAYER_START[self._player_number].get_y())
         self._position = Point(x, y)
         self._fire_delay = constants.TANK_REPEAT_RATE
         self._reload_gun()
         self._facing = Point(0, -1) # Set the initial facing direction to UP.
-
 
     def set_facing(self, velocity):
         """Sets the _facing attribute to point the Tank in different directions. The velocity data is
@@ -56,6 +57,23 @@ class Tank(Actor):
 
         self._facing = Point(new_x, new_y)
 
+    def rotate_tank(self):
+        """Rotates the image depending in the direction its facing the tank has.
+        """
+        x = self._facing.get_x()
+        y = self._facing.get_y()
+
+        # if x == 0 and y <= -0.1:
+        #     self._image.set_rotation(0)
+        
+        # elif x == 0 and y >= 0.1:
+        #     self._image.set_rotation(180)
+
+        # elif x <= 0.1 and y == 0:
+        #     self._image.set_rotation(90)
+        
+        # elif x >= 0.1 and y == 0:
+        #     self._image.set_rotation(270)
 
     def _reload_gun(self):
         """Reloads the player's gun with ammunition and resets the reload timer.
@@ -87,6 +105,7 @@ class Tank(Actor):
         """Performs all of the move_next actions of the parent, plus updating the gun status
         and gun timers as needed.
         """
+        self.rotate_tank()
         super().move_next()
         self._do_fire_delay()
         self._do_reload_delay()        
