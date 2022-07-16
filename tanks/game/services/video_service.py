@@ -32,16 +32,24 @@ class VideoService:
         if self._debug == True:
             self._draw_grid()
 
-    def draw_image(self, image, position):
+    def draw_image(self, image, position, color = pyray.WHITE):
+        """Draws the image that is passed
+        
+        Args:
+            image (Image): An instance of image to be drawn.
+            position (Point): An instance of point to represent position.
+            color (Color): An instance of color to represent tint.
+        """
         filepath = image.get_filename()
         filepath = str(pathlib.Path(filepath))
         texture = self._textures[filepath]
         x = position.get_x()
         y = position.get_y()
         raylib_position = pyray.Vector2(x, y)
+        tint = color
         scale = image.get_scale()
         rotation = image.get_rotation()
-        pyray.draw_texture_ex(texture, raylib_position, rotation, scale, pyray.WHITE)
+        pyray.draw_texture_ex(texture, raylib_position, rotation, scale, tint)
 
     def draw_actor(self, actor, centered=False):
         """Draws the given actor's text on the screen.
@@ -137,6 +145,20 @@ class VideoService:
             text (str): The text to check if the missile is not a explosion.
         """
         if text == constants.MISSILE_SHAPES[1]:
+            self.draw_image(image, position)
+
+    def draw_tank(self, image, position, reloading = False):
+        """Checks if the tank is reloading or not and changes the tint.
+
+        Args:
+            image (Image): The image to draw.
+            position (Point): The position of the image.
+            reloading (Boolean): Defines if the tank is recharging or not.
+        """
+        if reloading:
+            self.draw_image(image, position, pyray.GRAY)
+
+        elif not reloading:
             self.draw_image(image, position)
 
     def _get_x_offset(self, text, font_size):

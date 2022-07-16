@@ -31,6 +31,7 @@ class Tank(Actor):
         self._player_number = player_number
         self._color = constants.PLAYER_COLORS[player_number]['ready']
         self._text = constants.TANK_SHAPE
+        self._reloading = False
         self.set_image(Image(constants.TANK_IMAGES[player_number]["animation1"]))
         x = int(constants.CELL_SIZE * constants.PLAYER_START[self._player_number].get_x())
         y = int(constants.CELL_SIZE * constants.PLAYER_START[self._player_number].get_y())
@@ -115,10 +116,12 @@ class Tank(Actor):
         """
         if self._num_rounds < 1:
             self.set_color(constants.PLAYER_COLORS[self._player_number]['wait'])
+            self._reloading = True
             self._reload_time -= 1
             if self._reload_time == 0:
                 self._reload_gun()
                 self.set_color(constants.PLAYER_COLORS[self._player_number]['ready'])
+                self._reloading = False
 
 
     def move_next(self):
@@ -130,8 +133,6 @@ class Tank(Actor):
         self._image.set_position(self._position)
         self._do_fire_delay()
         self._do_reload_delay()        
-          
-
 
     def fire_missile(self, cast):
         """Creates a missile actor (fires a missile or projectile) and sets its velocity. The 
@@ -148,19 +149,10 @@ class Tank(Actor):
             self._num_rounds -= 1
             self._fire_delay = 0
 
+    def get_reloading(self):
+        """Sees if the tanks is reloading or not
 
-
-
-
-
-            
-    
-        
-        
-           
-           
-           
-        
-        
-
-        
+        Returns:
+            reloading (boolean)
+        """
+        return self._reloading
