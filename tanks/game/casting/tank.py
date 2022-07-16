@@ -63,17 +63,37 @@ class Tank(Actor):
         x = self._facing.get_x()
         y = self._facing.get_y()
 
-        if x == 0 and y <= -0.1:
+        # Up
+        if x == 0 and y <= -0.1: 
             self._image.set_rotation(0)
+
+        #Up-Right
+        elif x >= 0.1 and y <= -0.1:
+            self._image.set_rotation(45)
+
+        #Right
+        elif x >= 0.1 and y == 0:
+            self._image.set_rotation(90)
         
+        #Down-Right
+        elif x >= 0.1 and y >= 0:
+            self._image.set_rotation(135)
+
+        #Down
         elif x == 0 and y >= 0.1:
             self._image.set_rotation(180)
 
+        #Down-Left
+        elif x <= 0.1 and y >= 0.1:
+            self._image.set_rotation(225)
+
+        #Left
         elif x <= 0.1 and y == 0:
-            self._image.set_rotation(90)
-        
-        elif x >= 0.1 and y == 0:
             self._image.set_rotation(270)
+
+        #Up-Left
+        elif x <= 0.1 and y <= -0.1:
+            self._image.set_rotation(315)
 
     def _reload_gun(self):
         """Reloads the player's gun with ammunition and resets the reload timer.
@@ -105,8 +125,9 @@ class Tank(Actor):
         """Performs all of the move_next actions of the parent, plus updating the gun status
         and gun timers as needed.
         """
-        self.rotate_tank()
         super().move_next()
+        self.rotate_tank()
+        self._image.set_position(self._position)
         self._do_fire_delay()
         self._do_reload_delay()        
           
