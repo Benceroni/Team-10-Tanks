@@ -1,40 +1,52 @@
-# cse210-05-tanks
+# Tanks
+_I aimed my pebble, but myself_  
+_Was all the one that fell._  
+_Was it Goliath was too large,_  
+_Or only I too small?_  
 
-__tank__  
-_The best rides are the ones where you_  
-_bite off much more than you can chew,_  
-_and live through it._  
-_- Doug Bradbury -_
+~ Emily Dickenson "The Duel" 
 
 ## Overview
-tank is a game where the players try to cut each other off using tanks that leave a trail behind them.
+Tanks is a game where two players attempt to annihilate each other by shooting exploding shells.
 
 ## Rules
-tank is played according to the following rules.
+Tank is played according to the following rules:
 
-- Players can move up, down, left and right...
-    - Player one moves using the W, S, A and D keys.
-    - Player two moves using the I, K, J and L keys.
+### Keyboard Commands
+Players can control their tanks with the following keyboard commands:
 
-- Each player's trail grows as they move.
-- Players try to maneuver so the opponent collides with their trail.
-- If a player collides with their own or their opponent's trail...
-    - A "game over" message is displayed in the middle of the screen.
-    - The tanks turn white.
-    - Players keep moving and turning but don't run into each other.
+| Command | Player 1  | Player 2 |
+| :---    |   :---:   |   :---:  |
+| Up      |     **W**     |     **I**    |
+| Down    |     **S**     |     **K**    |
+| Left    |     **A**     |     **J**    |
+| Right   |     **D**     |     **L**    |
+| Fire    | **Left-Alt**, or **Left-Ctrl** | **Right-Alt**, or **Right-Ctrl** |
+
+Some maps have open borders. Going off the edge of the screen will wrap around to the opposite side.
+
+### Health
+Each player has 100 health points. When a player runs out of health points, he or she loses the game.
+
+### Shooting
+Each player's tank has a cannon that will shoot five rounds at a time. After five rounds have been fired, the tank will dim and the player is unable to shoot while the crew reloads the cannon. The reload process takes only a couple of seconds. The tank is ready to shoot when it lights up again.
+
+The cannon can shoot a fairly decent range. Rounds will explode on contact with the other tank, other barriers, or the ground when they have reached their range limit. Explosions will hurt, even if it is not a direct hit. 
 
 ## Getting Started
 Make sure you have Python 3.8.0 or newer installed and running on your machine. Open a terminal and browse to the project's root folder. Start the program by running the following command.
 
-python3 tank or py tank
+`python3 tanks` or `py tanks`
 
-You can also run the program from an IDE like Visual Studio Code. Start your IDE and open the project folder. Select the main module inside the dice folder and click the "run" button.
+You will be prompted in the console or terminal which map you would like to play. After selecting a map, the game window will open and the game will commence.
+
+You can also run the program from an IDE like Visual Studio Code. Start your IDE and open the project folder. Select the main module inside the `tanks` folder and click the **Run** button.
 
 ## Project Structure
 The project files and folders are organized as follows:
 ```
 root                    (project root folder)
-+-- tank               (source code for game)
++-- tanks               (source code for game)
   +-- game              (specific classes)
     +-- casting         (classes who are used to make the interactable objects in the game)
     +-- directing       (classes who direct the sequence of actions in the play)
@@ -42,11 +54,11 @@ root                    (project root folder)
     +-- services        (classes that provide input and output from monitor and keyboard)
     +-- shared          (classes who are used to manage attributes in other classes)
   +-- __main__.py       (program entry point)
-+-- README.md           (general info)
++-- README.md           (this file, general info)
 ```
 
 ## Required Technologies
-Python 3.8.0
+Python 3.8.0 or greater.
 
 ## Authors
 - Spencer Bell (bel21032@byui.edu)
