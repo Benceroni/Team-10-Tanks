@@ -142,3 +142,13 @@ class VideoService:
     def _get_x_offset(self, text, font_size):
         width = pyray.measure_text(text, font_size)
         return int(width / 2)
+
+
+    def draw_banners(self, banners, centered=False):
+        """Draws the text for the given list of actors on the screen.
+
+        Args:
+            actors (list): A list of actors to draw.
+        """ 
+        for banner in banners:
+            self.draw_banner(banner, centered)
