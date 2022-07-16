@@ -45,6 +45,18 @@ TANKS - Map Choice
         user_choice = 0   
     cast.set_stage(user_choice)
 
+    print("""
+TANKS - Background choice
+-------------------------------------------
+1. Grass
+2. Sand
+3. Futuristic
+""")
+    user_background = input("Your choice: ")
+    if int(user_background) < 1 or int(user_choice) > 3:
+        user_background = 1
+    constants.BACKGROUND_KEY = user_background
+
     # start the game
     keyboard_service = KeyboardService()
     video_service = VideoService()

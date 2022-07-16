@@ -33,7 +33,7 @@ class DrawActorsAction(Action):
         missiles.extend(cast.get_actors("missiles2"))
         healths = cast.get_actors("healths")
 
-        background = Image(constants.BACKGROUND)
+        background = Image(constants.BACKGROUND[constants.BACKGROUND_KEY])
         self._video_service.clear_buffer(background)
         
         for missile in missiles:

@@ -1,4 +1,5 @@
 import os
+import random
 from game.shared.color import Color
 from game.shared.point import Point
 
@@ -50,7 +51,12 @@ CAPTION = "Tanks"
 #Directory
 ABSOLUTE_PATH = os.path.dirname(__file__)
 DIRECTORY = os.path.join(ABSOLUTE_PATH, "assets")
-BACKGROUND = os.path.join(ABSOLUTE_PATH, "assets/sand.png")
+BACKGROUND_KEY = "1"
+BACKGROUND = {
+    "1": (os.path.join(ABSOLUTE_PATH, "assets/grass.png")),
+    "2": (os.path.join(ABSOLUTE_PATH, "assets/sand.png")),
+    "3": (os.path.join(ABSOLUTE_PATH, "assets/futuristic.png"))
+    }
 
 # Health point positions.
 HEALTH_POINT_POSITION = [

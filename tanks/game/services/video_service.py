@@ -28,7 +28,7 @@ class VideoService:
         """
         pyray.begin_drawing()
         pyray.clear_background(pyray.BLACK)
-        self.draw_background(image)
+        self.draw_image(image, Point(0, 0))
         if self._debug == True:
             self._draw_grid()
 
@@ -102,12 +102,6 @@ class VideoService:
         for x in range(0, constants.MAX_X, constants.CELL_SIZE):
             pyray.draw_line(x, 0, x, constants.MAX_Y, pyray.GRAY)
 
-    def draw_background(self, image):
-        """Draws the background on the screen"""
-        image = image
-        for y in range(0, constants.MAX_Y, constants.CELL_SIZE):
-            for x in range(0, constants.MAX_X, constants.CELL_SIZE):
-                self.draw_image(image, Point(x, y))
 
     def unload_images(self):
         for texture in self._textures.values():
