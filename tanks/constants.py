@@ -61,7 +61,10 @@ BACKGROUND_KEY = "1"
 BACKGROUND = {
     "1": (os.path.join(ABSOLUTE_PATH, "assets/grass.png")),
     "2": (os.path.join(ABSOLUTE_PATH, "assets/sand.png")),
-    "3": (os.path.join(ABSOLUTE_PATH, "assets/futuristic.png"))
+    "3": (os.path.join(ABSOLUTE_PATH, "assets/futuristic.png")),
+    "4": (os.path.join(ABSOLUTE_PATH, "assets/grass_dark.png")),
+    "5": (os.path.join(ABSOLUTE_PATH, "assets/sand_dark.png")),
+    "6": (os.path.join(ABSOLUTE_PATH, "assets/futuristic_dark.png"))
     }
 
 # Health point positions.
