@@ -32,6 +32,7 @@ class DrawActorsAction(Action):
         missiles = cast.get_actors("missiles1")
         missiles.extend(cast.get_actors("missiles2"))
         healths = cast.get_actors("healths")
+        banners = cast.get_actors("banners")
 
         background = Image(constants.BACKGROUND[constants.BACKGROUND_KEY])
         self._video_service.clear_buffer(background)
@@ -48,5 +49,10 @@ class DrawActorsAction(Action):
 
         for wall in walls:
             self._video_service.draw_image(wall.get_image(), wall.get_position())
+
+
+        # Banners are last to have topmost priority
+        # over all other items.
+        self._video_service.draw_banners(banners, True)
 
         self._video_service.flush_buffer()
