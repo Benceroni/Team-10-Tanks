@@ -51,6 +51,9 @@ TANKS - Background choice
 1. Grass
 2. Sand
 3. Futuristic
+4. Dark Grass
+5. Dark Sand
+6. Dark Futuristic
 """)
     user_background = input("Your choice: ")
     if int(user_background) < 1 or int(user_choice) > 3:
