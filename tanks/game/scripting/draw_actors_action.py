@@ -40,7 +40,7 @@ class DrawActorsAction(Action):
             self._video_service.draw_actor(missile)
         
         for tank in tanks:
-            self._video_service.draw_image(tank.get_image(), tank.get_position())
+            self._video_service.draw_image(tank.get_image(), tank.get_image().get_position())
 
         for health in healths:
             self._video_service.draw_actor(health)
