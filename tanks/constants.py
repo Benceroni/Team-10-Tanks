@@ -144,6 +144,12 @@ for vect in MISSILE_EXPLOSION_VECTORS:
     v_y = round(vect[1] * CELL_SIZE / MISSILE_EXPLOSION_SCALE)
     MISSILE_EXPLOSION_VELOCITIES.append(Point(v_x, v_y))
 
+# Missile Images
+MISSILE_IMAGES = {
+    "0": (os.path.join(ABSOLUTE_PATH, "assets/red_missile.png")),
+    "1": (os.path.join(ABSOLUTE_PATH, "assets/blue_missile.png")),
+    "2": (os.path.join(ABSOLUTE_PATH, "assets/green_missile.png"))
+}
 
 
 ######## TANK DEFINITIONS ##########

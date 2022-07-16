@@ -38,6 +38,7 @@ class DrawActorsAction(Action):
         
         for missile in missiles:
             self._video_service.draw_actor(missile)
+            self._video_service.draw_missile(missile.get_image(), missile.get_position(), missile.get_text())
         
         for tank in tanks:
             self._video_service.draw_image(tank.get_image(), tank.get_image().get_position())

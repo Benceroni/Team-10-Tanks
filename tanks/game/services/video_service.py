@@ -50,17 +50,20 @@ class VideoService:
             actor (Actor): The actor to draw.
         """ 
         text = actor.get_text()
-        x = actor.get_position().get_x()
-        y = actor.get_position().get_y()
-        font_size = actor.get_font_size()
-        color = actor.get_color().to_tuple()
+        if text == constants.MISSILE_SHAPES[1]:
+            pass
+        else:
+            x = actor.get_position().get_x()
+            y = actor.get_position().get_y()
+            font_size = actor.get_font_size()
+            color = actor.get_color().to_tuple()
 
-        if centered:
-            width = pyray.measure_text(text, font_size)
-            offset = int(width / 2)
-            x -= offset
-            
-        pyray.draw_text(text, x, y, font_size, color)
+            if centered:
+                width = pyray.measure_text(text, font_size)
+                offset = int(width / 2)
+                x -= offset
+                
+            pyray.draw_text(text, x, y, font_size, color)
         
     def draw_actors(self, actors, centered=False):
         """Draws the text for the given list of actors on the screen.
@@ -124,6 +127,17 @@ class VideoService:
                 filename = str(pathlib.Path(filename))
                 filepaths.append(filename)
         return filepaths
+
+    def draw_missile(self, image, position, text):
+        """Difirentiates missiles from explosions and draws the missiles
+
+        Args:
+            image (Image): The image to draw if the check is passed.
+            position (Position): The position of the image.
+            text (str): The text to check if the missile is not a explosion.
+        """
+        if text == constants.MISSILE_SHAPES[1]:
+            self.draw_image(image, position)
 
     def _get_x_offset(self, text, font_size):
         width = pyray.measure_text(text, font_size)

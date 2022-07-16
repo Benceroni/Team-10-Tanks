@@ -2,6 +2,7 @@ import constants
 import random
 from game.casting.actor import Actor
 from game.shared.point import Point
+from game.shared.image import Image
 
 
 class Missile(Actor):
@@ -33,6 +34,7 @@ class Missile(Actor):
         self.set_velocity(velocity)
         self.set_color(color)
         self._player_num = player
+        self.set_image(Image(constants.MISSILE_IMAGES[str(self._player_num)]))
         self.set_range(constants.MISSILE_RANGE)
 
 
